@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Android-TP</string>
+
+    <string name="exercice1">Exercice 1</string>
+    <string name="exercice2">Exercice 2</string>
+    <string name="exercice3">Exercice 3</string>
+    <string name="exercice4">Exercice 4</string>
+    <string name="exercice5">Exercice 5</string>
+
+    <string name="quizz_1_question">Quelle est la différence de buts lors du match de football opposant l\'équipe enseignante du département à l\'équipe étudiante ?</string>
+    <string name="quizz_valider">Valider</string>
+    <string name="quizz_info">Faites un choix puis cliquez sur Valider</string>
+    <string name="quizz_rep_enseignants">+10 pour les enseignants</string>
+    <string name="quizz_rep_nul">0 Match nul</string>
+    <string name="quizz_rep_etudiants">+1 pour les étudiants</string>
+
+    <string name="shifoumi_choice_ordi">Main de l\'ordinateur</string>
+    <string name="shifoumi_choice_joueur">Choisir une main</string>
+    <string name="shifoumi_gagne">Gagné !</string>
+    <string name="shifoumi_defaite">Défaite</string>
+    <string name="shifoumi_egalite">Egalité</string>
+    <string name="shifoumi_pierre">Pierre</string>
+    <string name="shifoumi_feuille">Feuille</string>
+    <string name="shifoumi_ciseaux">Ciseaux</string>
+    <string name="title_activity_hello">HelloActivity</string>
+
+
+</resources>

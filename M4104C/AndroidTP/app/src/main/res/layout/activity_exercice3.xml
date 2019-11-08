@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Exercice3Activity">
+
+    <TextView
+        android:id="@+id/choice_ordi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:text="@string/shifoumi_choice_ordi"
+        android:textSize="30sp"
+        app:fontFamily="casual" />
+
+    <LinearLayout
+        android:id="@+id/shifoumi_ordi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/choice_ordi">
+
+        <ImageView
+            android:id="@+id/shifoumi_ordi_papier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#36AC80"
+            android:clickable="true"
+            android:contentDescription="@string/shifoumi_feuille"
+            android:focusable="true"
+            android:padding="4dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/papier" />
+
+        <ImageView
+            android:id="@+id/shifoumi_ordi_pierre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#36AC80"
+            android:clickable="true"
+            android:contentDescription="@string/shifoumi_pierre"
+            android:focusable="true"
+            android:padding="4dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/caillou" />
+
+        <ImageView
+            android:id="@+id/shifoumi_ordi_ciseaux"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#36AC80"
+            android:clickable="true"
+            android:contentDescription="@string/shifoumi_ciseaux"
+            android:focusable="true"
+            android:padding="4dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ciseaux" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/resultat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="........"
+        android:textColor="#0D8158"
+        android:textSize="24sp"
+        app:fontFamily="casual"
+        app:layout_constraintTop_toBottomOf="@id/shifoumi_ordi" />
+
+    <TextView
+        android:id="@+id/choice_joueur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/shifoumi_choice_joueur"
+        android:textSize="30sp"
+        app:fontFamily="casual"
+        app:layout_constraintTop_toBottomOf="@id/resultat" />
+
+    <LinearLayout
+        android:id="@+id/shifoumi_joueur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/choice_joueur">
+
+        <ImageView
+            android:id="@+id/shifoumi_joueur_papier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFD3DBD8"
+            android:clickable="true"
+            android:contentDescription="@string/shifoumi_feuille"
+            android:focusable="true"
+            android:onClick="onClickShifoumi"
+            android:padding="4dp"
+            app:srcCompat="@drawable/papier" />
+
+        <ImageView
+            android:id="@+id/shifoumi_joueur_pierre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFD3DBD8"
+            android:clickable="true"
+            android:contentDescription="@string/shifoumi_pierre"
+            android:focusable="true"
+            android:onClick="onClickShifoumi"
+            android:padding="4dp"
+            app:srcCompat="@drawable/caillou" />
+
+        <ImageView
+            android:id="@+id/shifoumi_joueur_ciseaux"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#D3DBD8"
+            android:clickable="true"
+            android:contentDescription="@string/shifoumi_ciseaux"
+            android:focusable="true"
+            android:onClick="onClickShifoumi"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ciseaux" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/resultats_chiffre"
+        android:layout_width="200dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="195dp"
+        android:layout_marginLeft="195dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="33dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shifoumi_joueur" />
+
+</android.support.constraint.ConstraintLayout>

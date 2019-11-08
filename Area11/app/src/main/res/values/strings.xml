@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">AreaFit</string>
+    <string name="creer_un_entrainement">Créer un entrainement</string>
+    <string name="mes_entrainements">Mes entrainements</string>
+    <string name="app_location_liste_entrainements">Liste des entrainements</string>
+    <string name="app_location_home">Accueil</string>
+    <string name="app_location_creer_entrainement">Nouvel entrainement</string>
+    <string name="ajouter_une_etape">Ajouter une étape</string>
+    <string name="ajouter_un_cycle">Ajouter un cycle</string>
+    <string name="nombre_de_repetitions">Nombre de répétitions :</string>
+    <string name="illustration">Illustration :</string>
+    <string name="valider_l_entrainement">Valider l\'entrainement</string>
+    <string name="temps_de_preparation">Temps de préparation :</string>
+    <string name="nombre_de_sequences">Nombre de séquences :</string>
+    <string name="nombre_de_cycles">Nombre de cycles :</string>
+    <string name="duree_de_l_activite">Durée de l\'activité :</string>
+    <string name="duree_du_repos">Durée du repos :</string>
+    <string name="duree_du_repos_de_sequence">Durée du repos de séquence :</string>
+    <string name="ajouter_un_exercice">Ajouter un exercice</string>
+    <string name="tester">Tester</string>
+    <string name="repos_entre_sequences">Repos entre séquences :</string>
+    <string name="indiquer_le_nom_action_de_l_exercice">Indiquer le nom/action de l\'exercice</string>
+    <string name="indiquer_le_nombre_de_r_p_titions_de_l_exercice">Indiquer le nombre de répétitions de l\'exercice :</string>
+</resources>

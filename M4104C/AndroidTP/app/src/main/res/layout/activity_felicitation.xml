@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FelicitationActivity">
+
+    <TextView
+        android:id="@+id/congratsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="FELICITATIONS !!"
+        android:textSize="30sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Choisir une autre table"
+        android:id="@+id/anotherTable"
+        android:onClick="onClickAnotherTable"
+        app:layout_constraintTop_toBottomOf="@id/congratsText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Choisir un autre exercice"
+        android:id="@+id/anotherExercice"
+        android:onClick="onClickAnotherExercice"
+        app:layout_constraintTop_toBottomOf="@id/anotherTable" />
+
+</android.support.constraint.ConstraintLayout>

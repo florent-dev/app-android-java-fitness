@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Exercice2Activity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/quizz_1_question"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textView2"
+        app:layout_constraintBottom_toTopOf="@id/button2">
+
+        <RadioButton
+            android:id="@+id/quizz_enseignants"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/quizz_rep_enseignants" />
+
+        <RadioButton
+            android:id="@+id/quizz_nul"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/quizz_rep_nul" />
+
+        <RadioButton
+            android:id="@+id/quizz_etudiants"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/quizz_rep_etudiants" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/quizz_valider"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/quizz_info"
+        android:onClick="submitQuizz"/>
+
+    <TextView
+        android:id="@+id/quizz_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/quizz_info"
+        app:layout_constraintTop_toBottomOf="@id/button2"
+        android:textAlignment="center" />
+
+
+</android.support.constraint.ConstraintLayout>

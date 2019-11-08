@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreerEntrainementActivity"
+    android:background="@drawable/wood_bc"
+    android:id="@+id/layoutCreerEntrainement">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:background="#65FFFFFF"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="20dp">
+
+        <TextView
+            android:id="@+id/titleApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:text="@string/app_name"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            app:fontFamily="@font/bowlby_one_sc"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="20dp" />
+
+        <TextView
+            android:id="@+id/titleLocationApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="25dp"
+            android:text="@string/app_location_creer_entrainement"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:fontFamily="@font/bowlby_one_sc"
+            app:layout_constraintTop_toBottomOf="@id/titleApp"
+            tools:layout_editor_absoluteX="20dp" />
+
+        <TableLayout
+            android:id="@+id/linearlayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            app:layout_constraintTop_toBottomOf="@id/titleLocationApp">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temps_de_preparation"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/entrainement_preparation_temps"
+                    android:layout_width="72dp"
+                    android:inputType="number" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nombre_de_sequences"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/entrainement_sequence_repetitions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/repos_entre_sequences"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/entrainement_sequence_repos_temps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/tableLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearlayout1">
+
+            <ListView
+                android:id="@+id/listViewExercices"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/ajouterExercice"
+                    android:background="#FFFFFF"
+                    android:onClick="ajouterExercice"
+                    android:text="@string/ajouter_un_exercice"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <Button
+                    android:id="@+id/mes_entrainements"
+                    android:background="#FFFFFF"
+                    android:onClick="testerEntrainement"
+                    android:text="@string/tester"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </TableRow>
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

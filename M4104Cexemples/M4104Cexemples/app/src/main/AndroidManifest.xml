@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="m4104C.exemples">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".exemple_1_1.Exemple_1_1_1Activity"
+            android:label="Exemple 1.1.1" />
+        <activity
+            android:name=".exemple_1_1.Exemple_1_1_2Activity"
+            android:label="Exemple 1.1.2" />
+        <activity
+            android:name=".exemple_1_1.Exemple_1_1_3Activity"
+            android:label="Exemple 1.1.3" />
+        <activity
+            android:name=".exemple_1_1.Exemple_1_1_4Activity"
+            android:label="Exemple 1.1.4" />
+        <activity
+            android:name=".exemple_1_1.Exemple_1_1_5Activity"
+            android:label="Exemple 1.1.5" />
+        <activity
+            android:name=".exemple_1_1.Exemple_1_1_6Activity"
+            android:label="Exemple 1.1.6" />
+        <activity
+            android:name=".exemple_1_1.Exemple_1_1_7Activity"
+            android:label="Exemple 1.1.7" />
+    </application>
+
+</manifest>
