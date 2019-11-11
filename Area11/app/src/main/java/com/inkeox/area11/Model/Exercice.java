@@ -8,61 +8,30 @@ public class Exercice implements Serializable {
     private int idEntrainement;
     private String nom = "Nom de l'exercice";
     private String icone;
-    private int reposTemps;
-    private int repetitions;
 
-    public Exercice(String nom, String icone, int reposTemps, int repetitions) {
+    private int temps;
+    private int tempsRepos;
+
+    // Constructeur
+    public Exercice(String nom, String icone, int temps, int tempsRepos) {
         this.nom = nom;
         this.icone = icone;
-        this.reposTemps = reposTemps;
-        this.repetitions = repetitions;
+        this.temps = temps;
+        this.tempsRepos = tempsRepos;
     }
 
-    public int getId() {
-        return id;
-    }
+    // Setters
+    public void setNom(String nom) { this.nom = nom; }
+    public void setIcone(String icone) { this.icone = icone; }
+    public void setTemps(int temps) { this.temps = temps; }
+    public void setTempsRepos(int tempsRepos) { this.tempsRepos = tempsRepos; }
+    public void setIdEntrainement(int idEntrainement) { this.idEntrainement = idEntrainement; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIdEntrainement() {
-        return idEntrainement;
-    }
-
-    public void setIdEntrainement(int idEntrainement) {
-        this.idEntrainement = idEntrainement;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getIcone() {
-        return icone;
-    }
-
-    public void setIcone(String icone) {
-        this.icone = icone;
-    }
-
-    public int getReposTemps() {
-        return reposTemps;
-    }
-
-    public void setReposTemps(int reposTemps) {
-        this.reposTemps = reposTemps;
-    }
-
-    public int getRepetitions() {
-        return repetitions;
-    }
-
-    public void setRepetitions(int repetitions) {
-        this.repetitions = repetitions;
-    }
+    // Getters
+    public int getId() { return id; }
+    public String getNom() { return nom; }
+    public String getIcone() { return icone; }
+    public int getTemps() { return temps; }
+    public int getTempsRepos() { return tempsRepos; }
+    public int getIdEntrainement() { return idEntrainement; }
 }

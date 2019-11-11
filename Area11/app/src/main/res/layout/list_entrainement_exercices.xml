@@ -24,7 +24,7 @@
         android:textStyle="bold" tools:text="Nom de l'action" />
 
     <TextView
-        android:id="@+id/repetitions"
+        android:id="@+id/temps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/nom"

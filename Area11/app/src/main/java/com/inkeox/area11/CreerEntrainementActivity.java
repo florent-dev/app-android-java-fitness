@@ -63,13 +63,13 @@ public class CreerEntrainementActivity extends AppCompatActivity {
      * @return List<Exercice> exercices
      */
     private List<Exercice> genererExercices() {
-        entrainement.addExercice(new Exercice("Pompes", "nn", 10, 10));
-        entrainement.addExercice(new Exercice("Crunch", "nn", 15, 15));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 10, 18));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 10, 18));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 10, 18));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 10, 18));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 10, 18));
+        entrainement.addExercice(new Exercice("Pompes", "nn", 15, 8));
+        entrainement.addExercice(new Exercice("Crunch", "nn", 15, 8));
+        entrainement.addExercice(new Exercice("Pas croisés", "nn", 20, 10));
+        entrainement.addExercice(new Exercice("Pas croisés", "nn", 15, 10));
+        entrainement.addExercice(new Exercice("Pas croisés", "nn", 20, 6));
+        entrainement.addExercice(new Exercice("Pas croisés", "nn", 15, 10));
+        entrainement.addExercice(new Exercice("Pas croisés", "nn", 10, 6));
         return entrainement.getExercices();
     }
 
@@ -111,7 +111,6 @@ public class CreerEntrainementActivity extends AppCompatActivity {
         entrainement.setPreparationTemps(Integer.parseInt(entrainement_preparation_temps.getText().toString()));
         entrainement.setSequenceRepetitions(Integer.parseInt(entrainement_sequence_repetitions.getText().toString()));
         entrainement.setSequenceReposTemps(Integer.parseInt(entrainement_sequence_repos_temps.getText().toString()));
-
 
         Intent intent = new Intent(this, LancerEntrainementActivity.class);
         Bundle bundle = new Bundle();

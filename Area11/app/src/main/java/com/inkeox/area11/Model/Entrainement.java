@@ -12,44 +12,35 @@ public class Entrainement implements Serializable {
     private int sequenceReposTemps = 30;
     private List<Exercice> exercices = new ArrayList<Exercice>();
 
-    private final Compteur compteur = new Compteur();
-
-    /**
-     * Constructeur
-     */
+    // Constructeur
     public Entrainement() {
         List<Exercice> exercices = new ArrayList<Exercice>();
     }
 
-    public int getPreparationTemps() {
-        return preparationTemps;
-    }
-
-    public void setPreparationTemps(int preparationTemps) {
-        this.preparationTemps = preparationTemps;
-    }
-
-    public int getSequenceRepetitions() {
-        return sequenceRepetitions;
-    }
-
-    public void setSequenceRepetitions(int sequenceRepetitions) {
-        this.sequenceRepetitions = sequenceRepetitions;
-    }
-
-    public int getSequenceReposTemps() {
-        return sequenceReposTemps;
-    }
-
-    public void setSequenceReposTemps(int sequenceReposTemps) {
-        this.sequenceReposTemps = sequenceReposTemps;
-    }
-
-    public List<Exercice> getExercices() {
-        return exercices;
+    // Constructeur database
+    public Entrainement(int $id, int $preparationTemps, int $sequenceRepetitions, int $sequenceReposTemps) {
+        this.id = $id;
+        setPreparationTemps($preparationTemps);
+        setSequenceRepetitions($sequenceRepetitions);
+        setSequenceReposTemps($sequenceReposTemps);
     }
 
     public void addExercice(Exercice exercice) {
         this.exercices.add(exercice);
     }
+
+    public void executerEntrainement() { }
+
+    // Setters
+    public void setPreparationTemps(int preparationTemps) { this.preparationTemps = preparationTemps; }
+    public void setSequenceRepetitions(int sequenceRepetitions) { this.sequenceRepetitions = sequenceRepetitions; }
+    public void setSequenceReposTemps(int sequenceReposTemps) { this.sequenceReposTemps = sequenceReposTemps; }
+
+    // Getters
+    public int getPreparationTemps() { return preparationTemps; }
+    public int getSequenceRepetitions() { return sequenceRepetitions; }
+    public int getSequenceReposTemps() { return sequenceReposTemps; }
+    public int getExercicesCount() { return exercices.size(); }
+    public List<Exercice> getExercices() { return exercices; }
+
 }

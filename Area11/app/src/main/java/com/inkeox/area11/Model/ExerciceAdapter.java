@@ -39,7 +39,7 @@ public class ExerciceAdapter extends ArrayAdapter<Exercice> {
         if(viewHolder == null){
             viewHolder = new ExerciceViewHolder();
             viewHolder.nom = (TextView) convertView.findViewById(R.id.nom);
-            viewHolder.repetitions = (TextView) convertView.findViewById(R.id.repetitions);
+            viewHolder.temps = (TextView) convertView.findViewById(R.id.temps);
             viewHolder.icone = (ImageView) convertView.findViewById(R.id.icone);
             convertView.setTag(viewHolder);
         }
@@ -49,7 +49,7 @@ public class ExerciceAdapter extends ArrayAdapter<Exercice> {
 
         // il ne reste plus qu'à remplir notre vue
         viewHolder.nom.setText(exercice.getNom());
-        viewHolder.repetitions.setText((exercice.getRepetitions() + " répétitions"));
+        viewHolder.temps.setText((exercice.getTemps() + " secondes"));
         viewHolder.icone.setImageDrawable(new ColorDrawable(Color.parseColor("#575553")));
 
         return convertView;
@@ -57,7 +57,7 @@ public class ExerciceAdapter extends ArrayAdapter<Exercice> {
 
     private class ExerciceViewHolder {
         TextView nom;
-        TextView repetitions;
+        TextView temps;
         ImageView icone;
     }
 }

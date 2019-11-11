@@ -21,4 +21,12 @@
     <string name="repos_entre_sequences">Repos entre séquences :</string>
     <string name="indiquer_le_nom_action_de_l_exercice">Indiquer le nom/action de l\'exercice</string>
     <string name="indiquer_le_nombre_de_r_p_titions_de_l_exercice">Indiquer le nombre de répétitions de l\'exercice :</string>
+    <string name="entrainement">Entrainement</string>
+    <string name="pause">Pause</string>
+    <string name="continuer">Continuer</string>
+    <string name="default_timer">00</string>
+    <string name="exercice_name">Nom de l\'exercice</string>
+    <string name="exercice_icone">Exercice icone</string>
+    <string name="lancer">Lancer</string>
+    <string name="reprendre">Reprendre</string>
 </resources>
