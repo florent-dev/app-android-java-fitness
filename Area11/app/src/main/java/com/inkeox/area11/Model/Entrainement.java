@@ -29,11 +29,9 @@ public class Entrainement implements Serializable {
         this.exercices.add(exercice);
     }
 
-    public void executerEntrainement() { }
-
     // Setters
     public void setPreparationTemps(int preparationTemps) { this.preparationTemps = preparationTemps; }
-    public void setSequenceRepetitions(int sequenceRepetitions) { this.sequenceRepetitions = sequenceRepetitions; }
+    public void setSequenceRepetitions(int sequenceRepetitions) { this.sequenceRepetitions = (sequenceRepetitions >= 1) ? sequenceRepetitions : 1; }
     public void setSequenceReposTemps(int sequenceReposTemps) { this.sequenceReposTemps = sequenceReposTemps; }
 
     // Getters

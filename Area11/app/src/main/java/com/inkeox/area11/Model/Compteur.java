@@ -24,11 +24,12 @@ public class Compteur extends UpdateSource implements Serializable {
     private long updatedTime;
     private int currentStepType = STEP_TYPE_PREPARATION;
     private int currentExercice = 0;
+    private int currentSequence = 1;
 
     // Constructeur
     public Compteur(Entrainement entrainement) {
         this.entrainement = entrainement;
-        updatedTime = entrainement.getPreparationTemps() * 1000 + 950;
+        this.updatedTime = entrainement.getPreparationTemps() * 1000;
     }
 
     // Lancer le compteur
@@ -39,6 +40,7 @@ public class Compteur extends UpdateSource implements Serializable {
         if (timer == null) {
 
             // Créer le CountDownTimer
+            Log.d("LAUNCH_UPDATEDTIME", Long.toString(updatedTime));
             timer = new CountDownTimer(updatedTime, 10) {
 
                 // Callback fired on regular interval
@@ -54,14 +56,16 @@ public class Compteur extends UpdateSource implements Serializable {
                     skipCurrentStep();
                     updatedTime = getCurrentTimeStep();
 
-                    // Mise à jour
-                    update();
+                    Log.d("GET_UPDATEDTIME", Long.toString(updatedTime));
 
                     // Si on a pas terminé l'entrainement
                     if (updatedTime > 0) {
-                        start();
+                        Compteur.this.timer = null;
+                        Compteur.this.start();
                     }
 
+                    // Mise à jour
+                    update();
                 }
 
             }.start();   // Start the countdown
@@ -97,6 +101,10 @@ public class Compteur extends UpdateSource implements Serializable {
         timer = null;
     }
 
+    private void setUpdatedTime(long time) {
+        this.updatedTime = time;
+    }
+
     // Getters
     public int getMinutes() { return getSecondes() / 60; }
     public int getMillisecondes() { return (int) (updatedTime % 1000); }
@@ -105,6 +113,14 @@ public class Compteur extends UpdateSource implements Serializable {
     public int getSecondes() {
         int secs = (int) (updatedTime / 1000);
         return secs % 60;
+    }
+
+    public void skip() {
+        pause();
+        skipCurrentStep();
+        updatedTime = getCurrentTimeStep();
+        timer = null;
+        start();
     }
 
     private void skipCurrentStep()
@@ -120,7 +136,12 @@ public class Compteur extends UpdateSource implements Serializable {
 
                 // On a terminé tous les exerices
                 if (this.currentExercice >= this.entrainement.getExercicesCount()) {
-                    this.currentStepType = STEP_TYPE_FINISHED;
+                    if (this.currentSequence >= this.entrainement.getSequenceRepetitions()) {
+                        this.currentStepType = STEP_TYPE_FINISHED;
+                    } else {
+                        this.currentExercice = 0;
+                        this.currentSequence++;
+                    }
                 } else {
                     this.currentStepType = STEP_TYPE_EXERCICE;
                 }
@@ -146,7 +167,7 @@ public class Compteur extends UpdateSource implements Serializable {
         }
 
         Exercice exercice = this.entrainement.getExercices().get(this.currentExercice);
-        return (this.currentStepType == STEP_TYPE_PAUSE) ? (exercice.getTempsRepos() * 1000+900) : (exercice.getTemps() * 1000+900);
+        return (this.currentStepType == STEP_TYPE_PAUSE) ? (exercice.getTempsRepos() * 1000) : (exercice.getTemps() * 1000);
     }
 
     /**

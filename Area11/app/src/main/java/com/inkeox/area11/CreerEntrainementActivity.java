@@ -63,13 +63,13 @@ public class CreerEntrainementActivity extends AppCompatActivity {
      * @return List<Exercice> exercices
      */
     private List<Exercice> genererExercices() {
-        entrainement.addExercice(new Exercice("Pompes", "nn", 15, 8));
-        entrainement.addExercice(new Exercice("Crunch", "nn", 15, 8));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 20, 10));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 15, 10));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 20, 6));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 15, 10));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 10, 6));
+        entrainement.addExercice(new Exercice("Pompes", "nn", 5, 2));
+        entrainement.addExercice(new Exercice("Crunch", "nn", 4, 3));
+        entrainement.addExercice(new Exercice("Pas croisés", "nn", 4, 2));
+        //entrainement.addExercice(new Exercice("Pas croisés", "nn", 5, 8));
+        //entrainement.addExercice(new Exercice("Pas croisés", "nn", 10, 4));
+        //entrainement.addExercice(new Exercice("Pas croisés", "nn", 15, 3));
+        //entrainement.addExercice(new Exercice("Pas croisés", "nn", 5, 8));
         return entrainement.getExercices();
     }
 

@@ -24,8 +24,8 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
     private ImageView exerciceIcone;
     private TextView exerciceNom;
     private TextView timerValue;
-    private Button startButton;
-    private Button pauseButton;
+    private Button startPauseButton;
+    private Button skipButton;
 
     /**
      * onCreate
@@ -43,8 +43,8 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
         exerciceIcone = (ImageView) findViewById(R.id.exerciceIcone);
         exerciceNom = (TextView) findViewById(R.id.exerciceNom);
         timerValue = (TextView) findViewById(R.id.timerValue);
-        startButton = (Button) findViewById(R.id.startButton);
-        pauseButton = (Button) findViewById(R.id.pauseButton);
+        startPauseButton = (Button) findViewById(R.id.startPauseButton);
+        skipButton = (Button) findViewById(R.id.skipButton);
 
         // Abonner l'activité au compteur pour "suivre" les événements
         compteur.addOnUpdateListener(this);
@@ -55,14 +55,18 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
     }
 
     /**
-     * Lancer le compteur
-     * TODO : non utilisée désormais
+     * Lancer ou mettre en pause le compteur
      * @param view -
      */
-    public void onStart(View view) {
-        startButton.setText(getString(R.string.reprendre));
-        startButton.setVisibility(View.INVISIBLE);
-        pauseButton.setVisibility(View.VISIBLE);
+    public void onStartPause(View view) {
+
+        if (startPauseButton.getText().toString().equals(getString(R.string.pause))) {
+            compteur.pause();
+            startPauseButton.setText(R.string.reprendre);
+            return;
+        }
+
+        startPauseButton.setText(getString(R.string.pause));
         compteur.start();
     }
 
@@ -70,12 +74,10 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
      * Mettre en pause le compteur
      * @param view -
      */
-    public void onPause(View view) {
-        startButton.setVisibility(View.VISIBLE);
-        pauseButton.setVisibility(View.INVISIBLE);
-        compteur.pause();
+    public void onSkip(View view) {
+        compteur.skip();
+        startPauseButton.setText(getString(R.string.pause));
     }
-
 
     /**
      * Remettre à zéro le compteur
@@ -90,9 +92,7 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
      */
     private void timerUpdate() {
         // Affichage des informations du compteur
-        timerValue.setText("" + compteur.getMinutes() + ":"
-                + String.format("%02d", compteur.getSecondes()) + ":"
-                + String.format("%03d", compteur.getMillisecondes()));
+        timerValue.setText(String.format("%02d", compteur.getSecondes()) + ":" + String.format("%03d", compteur.getMillisecondes()));
     }
 
     /**
