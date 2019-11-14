@@ -17,7 +17,8 @@ public class Compteur extends UpdateSource implements Serializable {
     private final static int STEP_TYPE_PREPARATION = 0;
     private final static int STEP_TYPE_EXERCICE = 1;
     private final static int STEP_TYPE_PAUSE = 2;
-    private final static int STEP_TYPE_FINISHED = 3;
+    private final static int STEP_TYPE_PAUSE_FIN_SEQ = 3;
+    private final static int STEP_TYPE_FINISHED = 4;
 
     private Entrainement entrainement;
     private CountDownTimer timer;   // https://developer.android.com/reference/android/os/CountDownTimer.html
@@ -116,11 +117,13 @@ public class Compteur extends UpdateSource implements Serializable {
     }
 
     public void skip() {
-        pause();
-        skipCurrentStep();
-        updatedTime = getCurrentTimeStep();
-        timer = null;
-        start();
+        if (this.currentStepType < STEP_TYPE_FINISHED) {
+            pause();
+            skipCurrentStep();
+            updatedTime = getCurrentTimeStep();
+            timer = null;
+            start();
+        }
     }
 
     private void skipCurrentStep()
@@ -135,17 +138,26 @@ public class Compteur extends UpdateSource implements Serializable {
                 this.currentExercice++;
 
                 // On a terminé tous les exerices
+                // Ou alors on passe au suivant
                 if (this.currentExercice >= this.entrainement.getExercicesCount()) {
+
+                    // On a terminé toutes les séquences
+                    // Ou alors on passe à la suivante
                     if (this.currentSequence >= this.entrainement.getSequenceRepetitions()) {
                         this.currentStepType = STEP_TYPE_FINISHED;
                     } else {
                         this.currentExercice = 0;
+                        this.currentStepType = STEP_TYPE_PAUSE_FIN_SEQ;
                         this.currentSequence++;
                     }
+
                 } else {
                     this.currentStepType = STEP_TYPE_EXERCICE;
                 }
+                break;
 
+            case STEP_TYPE_PAUSE_FIN_SEQ:
+                this.currentStepType = STEP_TYPE_EXERCICE;
                 break;
 
             case STEP_TYPE_PREPARATION:
@@ -153,6 +165,8 @@ public class Compteur extends UpdateSource implements Serializable {
                 break;
 
         }
+        Log.d("SKIP_EXO", Integer.toString(this.currentExercice));
+        Log.d("SKIP_STEP", Integer.toString(this.currentStepType));
     }
 
     /**
@@ -161,13 +175,26 @@ public class Compteur extends UpdateSource implements Serializable {
      */
     private int getCurrentTimeStep()
     {
-        Log.d("COMPTEUR", "getCurrentTimeStep");
         if (this.currentStepType == STEP_TYPE_FINISHED) {
             return 0;
         }
 
         Exercice exercice = this.entrainement.getExercices().get(this.currentExercice);
-        return (this.currentStepType == STEP_TYPE_PAUSE) ? (exercice.getTempsRepos() * 1000) : (exercice.getTemps() * 1000);
+        int time = 0;
+
+        switch (this.currentStepType) {
+            case STEP_TYPE_EXERCICE:
+                time = exercice.getTemps();
+                break;
+            case STEP_TYPE_PAUSE:
+                time = exercice.getTempsRepos();
+                break;
+            case STEP_TYPE_PAUSE_FIN_SEQ:
+                time = entrainement.getSequenceReposTemps();
+                break;
+        }
+
+        return (time * 1000);
     }
 
     /**
@@ -180,6 +207,7 @@ public class Compteur extends UpdateSource implements Serializable {
             case STEP_TYPE_PREPARATION: return Arrays.asList("Préparation en cours... :)", "icone");
             case STEP_TYPE_EXERCICE: return Arrays.asList(this.entrainement.getExercices().get(this.currentExercice).getNom(), "icone");
             case STEP_TYPE_PAUSE: return Arrays.asList("Pause de " + this.entrainement.getExercices().get(this.currentExercice).getTempsRepos() + "sec.", "icone");
+            case STEP_TYPE_PAUSE_FIN_SEQ: return Arrays.asList("Longue pause de " + this.entrainement.getSequenceReposTemps() + "sec.", "icone");
             case STEP_TYPE_FINISHED: return Arrays.asList("Terminé !", "icone");
         }
 
