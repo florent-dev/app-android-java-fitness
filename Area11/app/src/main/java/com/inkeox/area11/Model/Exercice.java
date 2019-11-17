@@ -2,18 +2,37 @@ package com.inkeox.area11.Model;
 
 import java.io.Serializable;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName="exercices", foreignKeys = @ForeignKey(entity = Entrainement.class, parentColumns = "id", childColumns = "entrainement_id", onDelete = CASCADE))
 public class Exercice implements Serializable {
 
+    @PrimaryKey
     private int id;
+
+    @ForeignKey(entity = Entrainement.class, parentColumns = "id", childColumns = "entrainement_id", onDelete = CASCADE)
+    @ColumnInfo(name = "entrainement_id", index = true)
     private int idEntrainement;
+
+    @ColumnInfo(name = "nom")
     private String nom = "Nom de l'exercice";
+
+    @ColumnInfo(name = "icone")
     private String icone;
 
+    @ColumnInfo(name = "temps")
     private int temps;
+
+    @ColumnInfo(name = "temps_repos")
     private int tempsRepos;
 
-    // Constructeur
-    public Exercice(String nom, String icone, int temps, int tempsRepos) {
+    public Exercice(int id, String nom, String icone, int temps, int tempsRepos) {
+        this.id = id;
         this.nom = nom;
         this.icone = icone;
         this.temps = temps;
@@ -21,6 +40,7 @@ public class Exercice implements Serializable {
     }
 
     // Setters
+    public void setId(int id) { this.id = id; }
     public void setNom(String nom) { this.nom = nom; }
     public void setIcone(String icone) { this.icone = icone; }
     public void setTemps(int temps) { this.temps = temps; }

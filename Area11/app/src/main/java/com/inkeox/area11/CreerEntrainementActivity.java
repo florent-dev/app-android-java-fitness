@@ -63,13 +63,9 @@ public class CreerEntrainementActivity extends AppCompatActivity {
      * @return List<Exercice> exercices
      */
     private List<Exercice> genererExercices() {
-        entrainement.addExercice(new Exercice("Pompes", "nn", 5, 2));
-        entrainement.addExercice(new Exercice("Crunch", "nn", 4, 3));
-        entrainement.addExercice(new Exercice("Pas croisés", "nn", 4, 2));
-        //entrainement.addExercice(new Exercice("Pas croisés", "nn", 5, 8));
-        //entrainement.addExercice(new Exercice("Pas croisés", "nn", 10, 4));
-        //entrainement.addExercice(new Exercice("Pas croisés", "nn", 15, 3));
-        //entrainement.addExercice(new Exercice("Pas croisés", "nn", 5, 8));
+        entrainement.addExercice(new Exercice(-1, "Pompes", "nn", 5, 2));
+        entrainement.addExercice(new Exercice(-1, "Crunch", "nn", 4, 3));
+        entrainement.addExercice(new Exercice(-1, "Pas croisés", "nn", 4, 2));
         return entrainement.getExercices();
     }
 
@@ -78,7 +74,6 @@ public class CreerEntrainementActivity extends AppCompatActivity {
      * @param view vue
      */
     public void ajouterExercice(View view) {
-
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View customView = layoutInflater.inflate(R.layout.popup_conception_exercice,null);
 

@@ -36,12 +36,9 @@ public class Compteur extends UpdateSource implements Serializable {
     // Lancer le compteur
     public void start() {
 
-        Log.d("COMPTEUR", "start()");
-
         if (timer == null) {
 
             // Créer le CountDownTimer
-            Log.d("LAUNCH_UPDATEDTIME", Long.toString(updatedTime));
             timer = new CountDownTimer(updatedTime, 10) {
 
                 // Callback fired on regular interval
@@ -56,8 +53,6 @@ public class Compteur extends UpdateSource implements Serializable {
                 public void onFinish() {
                     skipCurrentStep();
                     updatedTime = getCurrentTimeStep();
-
-                    Log.d("GET_UPDATEDTIME", Long.toString(updatedTime));
 
                     // Si on a pas terminé l'entrainement
                     if (updatedTime > 0) {
@@ -116,6 +111,9 @@ public class Compteur extends UpdateSource implements Serializable {
         return secs % 60;
     }
 
+    /**
+     * Passer à l'étape suivante
+     */
     public void skip() {
         if (this.currentStepType < STEP_TYPE_FINISHED) {
             pause();
@@ -126,10 +124,12 @@ public class Compteur extends UpdateSource implements Serializable {
         }
     }
 
+    /**
+     * Configurer l'étape en cours sur la suivante
+     */
     private void skipCurrentStep()
     {
         switch (this.currentStepType) {
-
             case STEP_TYPE_EXERCICE:
                 this.currentStepType = STEP_TYPE_PAUSE;
                 break;
@@ -138,20 +138,20 @@ public class Compteur extends UpdateSource implements Serializable {
                 this.currentExercice++;
 
                 // On a terminé tous les exerices
-                // Ou alors on passe au suivant
                 if (this.currentExercice >= this.entrainement.getExercicesCount()) {
 
                     // On a terminé toutes les séquences
-                    // Ou alors on passe à la suivante
                     if (this.currentSequence >= this.entrainement.getSequenceRepetitions()) {
                         this.currentStepType = STEP_TYPE_FINISHED;
                     } else {
+                        // Ou alors on passe à la séquence suivante
                         this.currentExercice = 0;
                         this.currentStepType = STEP_TYPE_PAUSE_FIN_SEQ;
                         this.currentSequence++;
                     }
 
                 } else {
+                    // Ou alors on passe à l'exercice suivant
                     this.currentStepType = STEP_TYPE_EXERCICE;
                 }
                 break;
@@ -163,10 +163,8 @@ public class Compteur extends UpdateSource implements Serializable {
             case STEP_TYPE_PREPARATION:
                 this.currentStepType++;
                 break;
-
         }
-        Log.d("SKIP_EXO", Integer.toString(this.currentExercice));
-        Log.d("SKIP_STEP", Integer.toString(this.currentStepType));
+
     }
 
     /**
@@ -175,6 +173,7 @@ public class Compteur extends UpdateSource implements Serializable {
      */
     private int getCurrentTimeStep()
     {
+        // Entrainement terminé
         if (this.currentStepType == STEP_TYPE_FINISHED) {
             return 0;
         }

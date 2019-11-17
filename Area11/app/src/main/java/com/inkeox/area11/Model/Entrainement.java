@@ -4,25 +4,39 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName="entrainements")
 public class Entrainement implements Serializable {
 
+    @PrimaryKey
     private int id;
+
+    @ColumnInfo(name = "preparation_temps")
     private int preparationTemps = 10;
+
+    @ColumnInfo(name = "sequence_repetitions")
     private int sequenceRepetitions = 2;
+
+    @ColumnInfo(name = "sequence_repos_temps")
     private int sequenceReposTemps = 30;
+
+    @Ignore
     private List<Exercice> exercices = new ArrayList<Exercice>();
 
-    // Constructeur
+    @Ignore
     public Entrainement() {
         List<Exercice> exercices = new ArrayList<Exercice>();
     }
 
-    // Constructeur database
-    public Entrainement(int $id, int $preparationTemps, int $sequenceRepetitions, int $sequenceReposTemps) {
-        this.id = $id;
-        setPreparationTemps($preparationTemps);
-        setSequenceRepetitions($sequenceRepetitions);
-        setSequenceReposTemps($sequenceReposTemps);
+    public Entrainement(int id, int preparationTemps, int sequenceRepetitions, int sequenceReposTemps) {
+        setId(id);
+        setPreparationTemps(preparationTemps);
+        setSequenceRepetitions(sequenceRepetitions);
+        setSequenceReposTemps(sequenceReposTemps);
     }
 
     public void addExercice(Exercice exercice) {
@@ -30,11 +44,13 @@ public class Entrainement implements Serializable {
     }
 
     // Setters
+    public void setId(int id) { this.id = id; }
     public void setPreparationTemps(int preparationTemps) { this.preparationTemps = preparationTemps; }
     public void setSequenceRepetitions(int sequenceRepetitions) { this.sequenceRepetitions = (sequenceRepetitions >= 1) ? sequenceRepetitions : 1; }
     public void setSequenceReposTemps(int sequenceReposTemps) { this.sequenceReposTemps = sequenceReposTemps; }
 
     // Getters
+    public int getId() { return id; }
     public int getPreparationTemps() { return preparationTemps; }
     public int getSequenceRepetitions() { return sequenceRepetitions; }
     public int getSequenceReposTemps() { return sequenceReposTemps; }
