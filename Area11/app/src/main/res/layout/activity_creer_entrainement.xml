@@ -132,6 +132,14 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
 
                 <Button
+                    android:id="@+id/enregistrerExercice"
+                    android:background="#FFFFFF"
+                    android:onClick="ajouterExercice"
+                    android:text="@string/enregistrer"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <Button
                     android:id="@+id/mes_entrainements"
                     android:background="#FFFFFF"
                     android:onClick="testerEntrainement"

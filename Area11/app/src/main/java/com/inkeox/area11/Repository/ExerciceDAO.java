@@ -1,4 +1,7 @@
-package com.inkeox.area11.Model;
+package com.inkeox.area11.Repository;
+
+import com.inkeox.area11.Model.Entrainement;
+import com.inkeox.area11.Model.Exercice;
 
 import java.util.List;
 

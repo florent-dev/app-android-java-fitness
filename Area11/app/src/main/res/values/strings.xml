@@ -30,4 +30,5 @@
     <string name="lancer">Lancer</string>
     <string name="reprendre">Reprendre</string>
     <string name="passer">Passer</string>
+    <string name="enregistrer">Enregistrer</string>
 </resources>

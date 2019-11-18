@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LancerEntrainementActivity extends AppCompatActivity implements OnUpdateListener {
 
+    private static final String STATE_COUNTER = "counter";
+
     // Model
     private Compteur compteur;
 
@@ -25,7 +27,6 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
     private TextView exerciceNom;
     private TextView timerValue;
     private Button startPauseButton;
-    private Button skipButton;
 
     /**
      * onCreate
@@ -34,17 +35,23 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            compteur = (Compteur) savedInstanceState.getSerializable(STATE_COUNTER);
+        }
+
         setContentView(R.layout.activity_lancer_entrainement);
 
-        Entrainement entrainement = (Entrainement) getIntent().getExtras().getSerializable("entrainement");
-        compteur = new Compteur(entrainement);
+        if (compteur == null) {
+            Entrainement entrainement = (Entrainement) getIntent().getExtras().getSerializable("entrainement");
+            compteur = new Compteur(entrainement);
+        }
 
         // Récupérer les views
         exerciceIcone = (ImageView) findViewById(R.id.exerciceIcone);
         exerciceNom = (TextView) findViewById(R.id.exerciceNom);
         timerValue = (TextView) findViewById(R.id.timerValue);
         startPauseButton = (Button) findViewById(R.id.startPauseButton);
-        skipButton = (Button) findViewById(R.id.skipButton);
 
         // Abonner l'activité au compteur pour "suivre" les événements
         compteur.addOnUpdateListener(this);
@@ -52,6 +59,16 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
         // Mise à jour graphique
         timerUpdate();
         entrainementInfosUpdate();
+    }
+
+    /**
+     * Conservation de notre état lors d'un changement
+     * @param outState -
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(STATE_COUNTER, compteur);
     }
 
     /**
