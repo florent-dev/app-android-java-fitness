@@ -31,4 +31,5 @@
     <string name="reprendre">Reprendre</string>
     <string name="passer">Passer</string>
     <string name="enregistrer">Enregistrer</string>
+    <string name="nom_de_l_entrainement">Nom de l\'entrainement :</string>
 </resources>

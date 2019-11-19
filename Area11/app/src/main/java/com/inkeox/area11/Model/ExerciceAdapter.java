@@ -31,23 +31,23 @@ public class ExerciceAdapter extends ArrayAdapter<Exercice> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_entrainement_exercices,parent, false);
+        if(convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_exercices, parent, false);
         }
 
         ExerciceViewHolder viewHolder = (ExerciceViewHolder) convertView.getTag();
-        if(viewHolder == null){
+        if(viewHolder == null) {
             viewHolder = new ExerciceViewHolder();
-            viewHolder.nom = (TextView) convertView.findViewById(R.id.nom);
-            viewHolder.temps = (TextView) convertView.findViewById(R.id.temps);
-            viewHolder.icone = (ImageView) convertView.findViewById(R.id.icone);
+            viewHolder.nom = convertView.findViewById(R.id.nom);
+            viewHolder.temps = convertView.findViewById(R.id.temps);
+            viewHolder.icone = convertView.findViewById(R.id.icone);
             convertView.setTag(viewHolder);
         }
 
         // getItem(position) va récupérer l'item [position] de la List<Exercice> exercices
         Exercice exercice = getItem(position);
 
-        // il ne reste plus qu'à remplir notre vue
+        // Il ne reste plus qu'à remplir notre vue
         viewHolder.nom.setText(exercice.getNom());
         viewHolder.temps.setText((exercice.getTemps() + " secondes"));
         viewHolder.icone.setImageDrawable(new ColorDrawable(Color.parseColor("#575553")));

@@ -1,4 +1,4 @@
-package com.inkeox.area11.Repository;
+package com.inkeox.area11.Database;
 
 import com.inkeox.area11.Model.Entrainement;
 import com.inkeox.area11.Model.Exercice;
@@ -10,6 +10,6 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {Entrainement.class, Exercice.class}, version = 1, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract EntrainementDAO getEntrainementDAO();
-    public abstract ExerciceDAO getExerciceDAO();
+    public abstract EntrainementDAO entrainementDAO();
+    public abstract ExerciceDAO exerciceDAO();
 }

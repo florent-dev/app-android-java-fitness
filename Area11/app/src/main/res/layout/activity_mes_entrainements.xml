@@ -39,17 +39,17 @@
             app:layout_constraintTop_toBottomOf="@id/titleApp"
             tools:layout_editor_absoluteX="20dp" />
 
-        <Button
-            android:id="@+id/mes_entrainements"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:drawableLeft="@android:drawable/btn_star_big_off"
-            android:onClick=""
-            android:paddingLeft="42dp"
-            android:text="Abdos"
-            android:textColor="#000000"
-            app:layout_constraintTop_toBottomOf="@id/titleLocationApp" />
+            app:layout_constraintTop_toBottomOf="@id/titleLocationApp">
+
+            <ListView
+                android:id="@+id/listViewEntrainements"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

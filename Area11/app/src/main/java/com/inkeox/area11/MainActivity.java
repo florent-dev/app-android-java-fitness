@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.inkeox.area11.Repository.AppDatabase;
+import com.inkeox.area11.Database.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
 

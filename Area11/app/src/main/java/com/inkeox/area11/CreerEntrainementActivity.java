@@ -3,9 +3,12 @@ package com.inkeox.area11;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import com.inkeox.area11.Database.DatabaseClient;
 import com.inkeox.area11.Model.Entrainement;
 import com.inkeox.area11.Model.Exercice;
 import com.inkeox.area11.Model.ExerciceAdapter;
@@ -31,6 +35,13 @@ public class CreerEntrainementActivity extends AppCompatActivity {
     ImageButton closePopupBtn;
     PopupWindow popupWindow;
     ConstraintLayout layoutCreerEntrainement;
+    EditText nomEntrainement;
+    EditText preparationTemps;
+    EditText nbSequences;
+    EditText reposSequence;
+
+    // Data
+    private DatabaseClient db;
 
     /**
      * onCreate
@@ -41,16 +52,25 @@ public class CreerEntrainementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creer_entrainement);
 
+        db = DatabaseClient.getInstance(getApplicationContext());
+
         // On utilise notre Adapter pour la liste des exos
         listViewExercices = findViewById(R.id.listViewExercices);
         List<Exercice> exercices = genererExercices();
         ExerciceAdapter adapter = new ExerciceAdapter(CreerEntrainementActivity.this, exercices);
         listViewExercices.setAdapter(adapter);
 
+        // On prépare nos vues
+        nomEntrainement = findViewById(R.id.entrainement_nom);
+        preparationTemps = findViewById(R.id.entrainement_preparation_temps);
+        nbSequences = findViewById(R.id.entrainement_sequence_repetitions);
+        reposSequence = findViewById(R.id.entrainement_sequence_repos_temps);
+
         // On définit les paramètres d'un entrainement par défaut
-        ( (EditText) findViewById(R.id.entrainement_preparation_temps) ).setText(String.valueOf(entrainement.getPreparationTemps()));
-        ( (EditText) findViewById(R.id.entrainement_sequence_repetitions) ).setText(String.valueOf(entrainement.getSequenceRepetitions()));
-        ( (EditText) findViewById(R.id.entrainement_sequence_repos_temps) ).setText(String.valueOf(entrainement.getSequenceReposTemps()));
+        nomEntrainement.setText(String.valueOf(entrainement.getNom()));
+        preparationTemps.setText(String.valueOf(entrainement.getPreparationTemps()));
+        nbSequences.setText(String.valueOf(entrainement.getSequenceRepetitions()));
+        reposSequence.setText(String.valueOf(entrainement.getSequenceReposTemps()));
 
         // On récupère certains éléments
         closePopupBtn = findViewById(R.id.ib_close);
@@ -63,9 +83,9 @@ public class CreerEntrainementActivity extends AppCompatActivity {
      * @return List<Exercice> exercices
      */
     private List<Exercice> genererExercices() {
-        entrainement.addExercice(new Exercice(-1, "Pompes", "nn", 5, 2));
-        entrainement.addExercice(new Exercice(-1, "Crunch", "nn", 4, 3));
-        entrainement.addExercice(new Exercice(-1, "Pas croisés", "nn", 4, 2));
+        entrainement.addExercice(new Exercice(0, "Pompes", "course", 5, 2));
+        entrainement.addExercice(new Exercice(0, "Crunch", "etirements", 4, 3));
+        entrainement.addExercice(new Exercice(0, "Pas croisés", "course", 4, 2));
         return entrainement.getExercices();
     }
 
@@ -77,15 +97,15 @@ public class CreerEntrainementActivity extends AppCompatActivity {
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View customView = layoutInflater.inflate(R.layout.popup_conception_exercice,null);
 
-        closePopupBtn = (ImageButton) customView.findViewById(R.id.ib_close);
+        closePopupBtn = customView.findViewById(R.id.ib_close);
 
-        //instantiate popup window
+        // Instancier la popup window
         popupWindow = new PopupWindow(customView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        //display the popup window
+        // Afficher la popup window
         popupWindow.showAtLocation(layoutCreerEntrainement, Gravity.CENTER, 0, 0);
 
-        //close the popup window on button click
+        // Fermer la popup window on button click
         closePopupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,18 +119,60 @@ public class CreerEntrainementActivity extends AppCompatActivity {
      * @param view vue
      */
     public void testerEntrainement(View view) {
-        EditText entrainement_preparation_temps = (EditText) findViewById(R.id.entrainement_preparation_temps);
-        EditText entrainement_sequence_repetitions = (EditText) findViewById(R.id.entrainement_sequence_repetitions);
-        EditText entrainement_sequence_repos_temps = (EditText) findViewById(R.id.entrainement_sequence_repos_temps);
-
-        entrainement.setPreparationTemps(Integer.parseInt(entrainement_preparation_temps.getText().toString()));
-        entrainement.setSequenceRepetitions(Integer.parseInt(entrainement_sequence_repetitions.getText().toString()));
-        entrainement.setSequenceReposTemps(Integer.parseInt(entrainement_sequence_repos_temps.getText().toString()));
-
+        updateEntrainementDatas();
         Intent intent = new Intent(this, LancerEntrainementActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("entrainement", entrainement);
         intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    /**
+     * Mets à jour l'entrainement avec les données saisies
+     */
+    public void updateEntrainementDatas() {
+        entrainement.setNom(nomEntrainement.getText().toString());
+        entrainement.setPreparationTemps(Integer.parseInt(preparationTemps.getText().toString()));
+        entrainement.setSequenceRepetitions(Integer.parseInt(nbSequences.getText().toString()));
+        entrainement.setSequenceReposTemps(Integer.parseInt(reposSequence.getText().toString()));
+    }
+
+    /**
+     * Enregistre l'entrainement en base de données
+     * @param view vue
+     */
+    public void enregisterEntrainement(View view) {
+        updateEntrainementDatas();
+
+        class UpdateEntrainements extends AsyncTask<Entrainement, Void, Void> {
+
+            @Override
+            protected Void doInBackground(Entrainement... params) {
+                // Insertion de l'entrainement
+                DatabaseClient.getAppDatabase().entrainementDAO().insert(params[0]);
+
+                int lastId = DatabaseClient.getAppDatabase().entrainementDAO().getLastId();
+                entrainement.setId(lastId);
+                Log.d("DB_LAST_ID", Integer.toString(lastId));
+
+                // Insertion des exercices de l'entrainement
+                for (Exercice exercice: entrainement.getExercices()) {
+                    exercice.setIdEntrainement(lastId);
+                    DatabaseClient.getAppDatabase().exerciceDAO().insert(exercice);
+                }
+
+                return null;
+            }
+        }
+
+        UpdateEntrainements ue = new UpdateEntrainements();
+        ue.execute(entrainement);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }

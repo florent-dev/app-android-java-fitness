@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingBottom="25dp"
+            android:paddingBottom="0dp"
             android:text="@string/app_location_creer_entrainement"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
@@ -50,6 +50,20 @@
             android:orientation="horizontal"
             android:padding="15dp"
             app:layout_constraintTop_toBottomOf="@id/titleLocationApp">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nom_de_l_entrainement"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/entrainement_nom"
+                    android:layout_width="72dp"
+                    android:inputType="text" />
+            </TableRow>
 
             <TableRow>
 
@@ -132,9 +146,9 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
 
                 <Button
-                    android:id="@+id/enregistrerExercice"
+                    android:id="@+id/enregistrerEntrainement"
                     android:background="#FFFFFF"
-                    android:onClick="ajouterExercice"
+                    android:onClick="enregisterEntrainement"
                     android:text="@string/enregistrer"
                     android:textColor="#000000"
                     app:layout_constraintBottom_toBottomOf="parent" />

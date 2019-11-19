@@ -12,7 +12,7 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity(tableName="exercices", foreignKeys = @ForeignKey(entity = Entrainement.class, parentColumns = "id", childColumns = "entrainement_id", onDelete = CASCADE))
 public class Exercice implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ForeignKey(entity = Entrainement.class, parentColumns = "id", childColumns = "entrainement_id", onDelete = CASCADE)
@@ -32,11 +32,11 @@ public class Exercice implements Serializable {
     private int tempsRepos;
 
     public Exercice(int id, String nom, String icone, int temps, int tempsRepos) {
-        this.id = id;
-        this.nom = nom;
-        this.icone = icone;
-        this.temps = temps;
-        this.tempsRepos = tempsRepos;
+        setId(id);
+        setNom(nom);
+        setIcone(icone);
+        setTemps(temps);
+        setTempsRepos(tempsRepos);
     }
 
     // Setters

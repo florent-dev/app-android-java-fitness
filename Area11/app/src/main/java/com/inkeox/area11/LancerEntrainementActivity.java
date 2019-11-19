@@ -35,23 +35,27 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_lancer_entrainement);
 
+        // Instanciation de l'entrainement
         if (savedInstanceState != null) {
             compteur = (Compteur) savedInstanceState.getSerializable(STATE_COUNTER);
         }
 
-        setContentView(R.layout.activity_lancer_entrainement);
-
         if (compteur == null) {
             Entrainement entrainement = (Entrainement) getIntent().getExtras().getSerializable("entrainement");
-            compteur = new Compteur(entrainement);
+
+            if (entrainement != null) {
+                compteur = new Compteur(entrainement);
+            }
+
         }
 
         // Récupérer les views
-        exerciceIcone = (ImageView) findViewById(R.id.exerciceIcone);
-        exerciceNom = (TextView) findViewById(R.id.exerciceNom);
-        timerValue = (TextView) findViewById(R.id.timerValue);
-        startPauseButton = (Button) findViewById(R.id.startPauseButton);
+        exerciceIcone = findViewById(R.id.exerciceIcone);
+        exerciceNom = findViewById(R.id.exerciceNom);
+        timerValue = findViewById(R.id.timerValue);
+        startPauseButton = findViewById(R.id.startPauseButton);
 
         // Abonner l'activité au compteur pour "suivre" les événements
         compteur.addOnUpdateListener(this);
@@ -63,12 +67,22 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
 
     /**
      * Conservation de notre état lors d'un changement
-     * @param outState -
+     * @param bundle -
      */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(STATE_COUNTER, compteur);
+    protected void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        bundle.putSerializable(STATE_COUNTER, compteur);
+    }
+
+    /**
+     * Application mise en pause
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        compteur.pause();
+        startPauseButton.setText(R.string.reprendre);
     }
 
     /**

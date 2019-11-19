@@ -14,17 +14,17 @@ import androidx.room.Update;
 @Dao
 public interface ExerciceDAO {
     @Query("SELECT * from exercices")
-    public List<Exercice> getAll();
+    List<Exercice> getAll();
 
     @Query("SELECT * from exercices where entrainement_id = :entrainementId")
-    public List<Exercice> getByEntrainementId(int entrainementId);
+    List<Exercice> getByEntrainementId(int entrainementId);
 
     @Insert
-    public void insert(Entrainement entrainement);
+    void insert(Exercice exercice);
 
     @Update
-    public void update(Entrainement entrainement);
+    void update(Exercice exercice);
 
     @Delete
-    public void delete(Entrainement entrainement);
+    void delete(Exercice exercice);
 }

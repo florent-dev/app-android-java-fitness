@@ -12,8 +12,11 @@ import androidx.room.PrimaryKey;
 @Entity(tableName="entrainements")
 public class Entrainement implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
+    @ColumnInfo(name = "nom")
+    private String nom = "Nom";
 
     @ColumnInfo(name = "preparation_temps")
     private int preparationTemps = 10;
@@ -32,8 +35,9 @@ public class Entrainement implements Serializable {
         List<Exercice> exercices = new ArrayList<Exercice>();
     }
 
-    public Entrainement(int id, int preparationTemps, int sequenceRepetitions, int sequenceReposTemps) {
+    public Entrainement(int id, String nom, int preparationTemps, int sequenceRepetitions, int sequenceReposTemps) {
         setId(id);
+        setNom(nom);
         setPreparationTemps(preparationTemps);
         setSequenceRepetitions(sequenceRepetitions);
         setSequenceReposTemps(sequenceReposTemps);
@@ -45,16 +49,19 @@ public class Entrainement implements Serializable {
 
     // Setters
     public void setId(int id) { this.id = id; }
+    public void setNom(String nom) { this.nom = nom; }
     public void setPreparationTemps(int preparationTemps) { this.preparationTemps = preparationTemps; }
     public void setSequenceRepetitions(int sequenceRepetitions) { this.sequenceRepetitions = (sequenceRepetitions >= 1) ? sequenceRepetitions : 1; }
     public void setSequenceReposTemps(int sequenceReposTemps) { this.sequenceReposTemps = sequenceReposTemps; }
+    public void setExercices(List<Exercice> exercices) { this.exercices = exercices; }
 
     // Getters
-    public int getId() { return id; }
-    public int getPreparationTemps() { return preparationTemps; }
-    public int getSequenceRepetitions() { return sequenceRepetitions; }
-    public int getSequenceReposTemps() { return sequenceReposTemps; }
-    public int getExercicesCount() { return exercices.size(); }
-    public List<Exercice> getExercices() { return exercices; }
+    public int getId() { return this.id; }
+    public String getNom() { return this.nom; }
+    public int getPreparationTemps() { return this.preparationTemps; }
+    public int getSequenceRepetitions() { return this.sequenceRepetitions; }
+    public int getSequenceReposTemps() { return this.sequenceReposTemps; }
+    public int getExercicesCount() { return this.exercices.size(); }
+    public List<Exercice> getExercices() { return this.exercices; }
 
 }

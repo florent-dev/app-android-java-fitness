@@ -14,20 +14,23 @@ import androidx.room.Update;
 @Dao
 public interface EntrainementDAO {
     @Query("SELECT * from entrainements")
-    public List<Entrainement> getAll();
+    List<Entrainement> getAll();
 
     @Query("SELECT * from entrainements where id = :id LIMIT 1")
-    public Entrainement getById(int id);
+    Entrainement getById(int id);
 
     @Query("SELECT * from exercices where entrainement_id = :id LIMIT 1")
-    public List<Exercice> getExercices(int id);
+    List<Exercice> getExercices(int id);
+
+    @Query("SELECT id from entrainements ORDER BY id DESC LIMIT 1")
+    int getLastId();
 
     @Insert
-    public void insert(Entrainement entrainement);
+    void insert(Entrainement entrainement);
 
     @Update
-    public void update(Entrainement entrainement);
+    void update(Entrainement entrainement);
 
     @Delete
-    public void delete(Entrainement entrainement);
+    void delete(Entrainement entrainement);
 }
