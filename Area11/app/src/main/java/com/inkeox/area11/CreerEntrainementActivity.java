@@ -86,6 +86,9 @@ public class CreerEntrainementActivity extends AppCompatActivity {
         entrainement.addExercice(new Exercice(0, "Pompes", "course", 5, 2));
         entrainement.addExercice(new Exercice(0, "Crunch", "etirements", 4, 3));
         entrainement.addExercice(new Exercice(0, "Pas croisés", "course", 4, 2));
+        entrainement.addExercice(new Exercice(0, "Pas croisés", "course", 4, 2));
+        entrainement.addExercice(new Exercice(0, "Pas croisés", "course", 4, 2));
+        entrainement.addExercice(new Exercice(0, "Pas croisés", "course", 4, 2));
         return entrainement.getExercices();
     }
 
@@ -120,7 +123,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
      */
     public void testerEntrainement(View view) {
         updateEntrainementDatas();
-        Intent intent = new Intent(this, LancerEntrainementActivity.class);
+        Intent intent = new Intent(this, JouerEntrainementActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("entrainement", entrainement);
         intent.putExtras(bundle);
@@ -144,6 +147,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
     public void enregisterEntrainement(View view) {
         updateEntrainementDatas();
 
+        @SuppressLint("StaticFieldLeak")
         class UpdateEntrainements extends AsyncTask<Entrainement, Void, Void> {
 
             @Override
@@ -153,7 +157,6 @@ public class CreerEntrainementActivity extends AppCompatActivity {
 
                 int lastId = DatabaseClient.getAppDatabase().entrainementDAO().getLastId();
                 entrainement.setId(lastId);
-                Log.d("DB_LAST_ID", Integer.toString(lastId));
 
                 // Insertion des exercices de l'entrainement
                 for (Exercice exercice: entrainement.getExercices()) {

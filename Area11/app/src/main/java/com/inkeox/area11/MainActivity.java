@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listeEntrainements(View view) {
-        Intent intent = new Intent(this, MesEntrainementsActivity.class);
+        Intent intent = new Intent(this, ListeEntrainementsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }

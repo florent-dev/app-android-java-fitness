@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.inkeox.area11.R;
@@ -37,6 +38,7 @@ public class EntrainementAdapter extends ArrayAdapter<Entrainement> {
             viewHolder = new EntrainementViewHolder();
             viewHolder.nom = convertView.findViewById(R.id.nom);
             viewHolder.nbSequences = convertView.findViewById(R.id.nb_sequences);
+            viewHolder.playEntrainementButton = convertView.findViewById(R.id.playEntrainementButton);
             convertView.setTag(viewHolder);
         }
 
@@ -46,6 +48,7 @@ public class EntrainementAdapter extends ArrayAdapter<Entrainement> {
         // Il ne reste plus qu'à remplir notre vue
         viewHolder.nom.setText(entrainement.getNom());
         viewHolder.nbSequences.setText((entrainement.getSequenceRepetitions() + " séquences comportant " + entrainement.getExercicesCount() + " exercices"));
+        viewHolder.playEntrainementButton.setId(entrainement.getId());
 
         return convertView;
     }
@@ -53,5 +56,6 @@ public class EntrainementAdapter extends ArrayAdapter<Entrainement> {
     private class EntrainementViewHolder {
         TextView nom;
         TextView nbSequences;
+        ImageButton playEntrainementButton;
     }
 }

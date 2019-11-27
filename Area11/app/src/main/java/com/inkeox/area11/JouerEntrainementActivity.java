@@ -15,7 +15,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LancerEntrainementActivity extends AppCompatActivity implements OnUpdateListener {
+public class JouerEntrainementActivity extends AppCompatActivity implements OnUpdateListener {
 
     private static final String STATE_COUNTER = "counter";
 
@@ -35,7 +35,7 @@ public class LancerEntrainementActivity extends AppCompatActivity implements OnU
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lancer_entrainement);
+        setContentView(R.layout.activity_jouer_entrainement);
 
         // Instanciation de l'entrainement
         if (savedInstanceState != null) {

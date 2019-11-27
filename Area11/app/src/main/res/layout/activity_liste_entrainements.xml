@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MesEntrainementsActivity"
+    tools:context=".ListeEntrainementsActivity"
     android:background="@drawable/wood_bc">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,19 +36,19 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             app:fontFamily="@font/bowlby_one_sc"
-            app:layout_constraintTop_toBottomOf="@id/titleApp"
-            tools:layout_editor_absoluteX="20dp" />
+            app:layout_constraintTop_toBottomOf="@id/titleApp" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/container"
             app:layout_constraintTop_toBottomOf="@id/titleLocationApp">
 
             <ListView
                 android:id="@+id/listViewEntrainements"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

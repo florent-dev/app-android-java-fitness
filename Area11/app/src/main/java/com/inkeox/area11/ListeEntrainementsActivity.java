@@ -2,27 +2,29 @@ package com.inkeox.area11;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import com.inkeox.area11.Database.DatabaseClient;
 import com.inkeox.area11.Model.Entrainement;
 import com.inkeox.area11.Model.EntrainementAdapter;
-import com.inkeox.area11.Database.AppDatabase;
 
 import java.util.List;
 
-public class MesEntrainementsActivity extends AppCompatActivity {
+public class ListeEntrainementsActivity extends AppCompatActivity {
 
     // Model
     ListView listViewEntrainements;
+    List<Entrainement> entrainements;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mes_entrainements);
+        setContentView(R.layout.activity_liste_entrainements);
 
         DatabaseClient.getInstance(getApplicationContext());
         listViewEntrainements = findViewById(R.id.listViewEntrainements);
@@ -37,7 +39,7 @@ public class MesEntrainementsActivity extends AppCompatActivity {
             protected List<Entrainement> doInBackground(Void... voids) {
 
                 // Liste des entrainements
-                List<Entrainement> entrainements = DatabaseClient.getAppDatabase().entrainementDAO().getAll();
+                entrainements = DatabaseClient.getAppDatabase().entrainementDAO().getAll();
 
                 // On alimente les entrainements par leurs exercices
                 for (Entrainement entrainement: entrainements) {
@@ -54,7 +56,7 @@ public class MesEntrainementsActivity extends AppCompatActivity {
                 Log.d("DB_NB_ENT", Integer.toString(entrainements.size()));
 
                 // On utilise notre Adapter pour la liste des entrainements
-                EntrainementAdapter adapter = new EntrainementAdapter(MesEntrainementsActivity.this, entrainements);
+                EntrainementAdapter adapter = new EntrainementAdapter(ListeEntrainementsActivity.this, entrainements);
                 listViewEntrainements.setAdapter(adapter);
             }
         }
@@ -62,5 +64,13 @@ public class MesEntrainementsActivity extends AppCompatActivity {
         // Création d'un objet de type GetTasks et execution de la demande asynchrone
         GetEntrainements ge = new GetEntrainements();
         ge.execute();
+    }
+
+    public void jouerEntrainement(View view) {
+        Intent intent = new Intent(this, JouerEntrainementActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("entrainement", entrainements.get(((int)view.getId()-1)));
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

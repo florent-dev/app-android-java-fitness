@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".CreerEntrainementActivity" />
-        <activity android:name=".MesEntrainementsActivity" />
-        <activity android:name=".LancerEntrainementActivity" />
+        <activity android:name=".ListeEntrainementsActivity" />
+        <activity android:name=".JouerEntrainementActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
