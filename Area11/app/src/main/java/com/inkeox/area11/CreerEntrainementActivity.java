@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,7 +93,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
 
     /**
      * Ouvre un pop-up window pour ajouter un exercice
-     * @param view vue
+     * @param view -
      */
     public void ajouterExercice(View view) {
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -119,11 +118,12 @@ public class CreerEntrainementActivity extends AppCompatActivity {
 
     /**
      * Lance l'activité LancerEntrainement pour tester celui en cours de création
-     * @param view vue
+     * @param view -
      */
     public void testerEntrainement(View view) {
         updateEntrainementDatas();
         Intent intent = new Intent(this, JouerEntrainementActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         Bundle bundle = new Bundle();
         bundle.putSerializable("entrainement", entrainement);
         intent.putExtras(bundle);
@@ -142,7 +142,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
 
     /**
      * Enregistre l'entrainement en base de données
-     * @param view vue
+     * @param view -
      */
     public void enregisterEntrainement(View view) {
         updateEntrainementDatas();
@@ -172,10 +172,17 @@ public class CreerEntrainementActivity extends AppCompatActivity {
         ue.execute(entrainement);
     }
 
+    /**
+     Retourne à l'activité hiérarchiquement en amont
+     * @param view -
+     */
+    public void retourActivitePrecedente(View view) {
+        this.onBackPressed();
+    }
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, 0);
     }
 }

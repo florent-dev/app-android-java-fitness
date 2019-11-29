@@ -34,11 +34,12 @@ public class EntrainementAdapter extends ArrayAdapter<Entrainement> {
         }
 
         EntrainementViewHolder viewHolder = (EntrainementViewHolder) convertView.getTag();
-        if(viewHolder == null) {
+
+        if (viewHolder == null) {
             viewHolder = new EntrainementViewHolder();
             viewHolder.nom = convertView.findViewById(R.id.nom);
             viewHolder.nbSequences = convertView.findViewById(R.id.nb_sequences);
-            viewHolder.playEntrainementButton = convertView.findViewById(R.id.playEntrainementButton);
+            viewHolder.playEntrainementButton = convertView.findViewById(R.id.removeExerciceButton);
             convertView.setTag(viewHolder);
         }
 

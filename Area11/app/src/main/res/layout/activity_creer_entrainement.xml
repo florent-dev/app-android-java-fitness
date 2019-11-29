@@ -115,7 +115,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/tableLayout"
+            app:layout_constraintBottom_toTopOf="@id/linearLayoutAjouterExerciceButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearlayout1">
@@ -126,11 +126,29 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linearLayoutAjouterExerciceButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/tableLayout">
+
+            <Button
+                android:id="@+id/ajouterExercice"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#CFC9C9"
+                android:onClick="ajouterExercice"
+                android:padding="2dp"
+                android:text="@string/ajouter_un_exercice"
+                android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </LinearLayout>
+
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="0"
+            android:stretchColumns="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -138,28 +156,25 @@
             <TableRow>
 
                 <Button
-                    android:id="@+id/ajouterExercice"
+                    android:id="@+id/retourActivitePrecedenteButton"
                     android:background="#FFFFFF"
-                    android:onClick="ajouterExercice"
-                    android:text="@string/ajouter_un_exercice"
-                    android:textColor="#000000"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    android:onClick="retourActivitePrecedente"
+                    android:text="@string/retour"
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/enregistrerEntrainement"
                     android:background="#FFFFFF"
                     android:onClick="enregisterEntrainement"
                     android:text="@string/enregistrer"
-                    android:textColor="#000000"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/mes_entrainements"
                     android:background="#FFFFFF"
                     android:onClick="testerEntrainement"
                     android:text="@string/tester"
-                    android:textColor="#000000"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    android:textColor="#000000" />
             </TableRow>
         </TableLayout>
 

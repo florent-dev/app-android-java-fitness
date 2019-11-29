@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class ExerciceAdapter extends ArrayAdapter<Exercice> {
             viewHolder.nom = convertView.findViewById(R.id.nom);
             viewHolder.temps = convertView.findViewById(R.id.temps);
             viewHolder.icone = convertView.findViewById(R.id.icone);
+            viewHolder.removeExerciceButton = convertView.findViewById(R.id.removeExerciceButton);
             convertView.setTag(viewHolder);
         }
 
@@ -51,6 +53,7 @@ public class ExerciceAdapter extends ArrayAdapter<Exercice> {
         viewHolder.nom.setText(exercice.getNom());
         viewHolder.temps.setText((exercice.getTemps() + " secondes"));
         viewHolder.icone.setImageDrawable(new ColorDrawable(Color.parseColor("#575553")));
+        viewHolder.removeExerciceButton.setId(exercice.getId());
 
         return convertView;
     }
@@ -59,5 +62,6 @@ public class ExerciceAdapter extends ArrayAdapter<Exercice> {
         TextView nom;
         TextView temps;
         ImageView icone;
+        ImageButton removeExerciceButton;
     }
 }

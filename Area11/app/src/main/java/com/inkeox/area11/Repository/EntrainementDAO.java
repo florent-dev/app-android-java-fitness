@@ -13,7 +13,7 @@ import androidx.room.Update;
 
 @Dao
 public interface EntrainementDAO {
-    @Query("SELECT * from entrainements")
+    @Query("SELECT * from entrainements ORDER BY id DESC")
     List<Entrainement> getAll();
 
     @Query("SELECT * from entrainements where id = :id LIMIT 1")

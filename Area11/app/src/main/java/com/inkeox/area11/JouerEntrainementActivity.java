@@ -143,4 +143,18 @@ public class JouerEntrainementActivity extends AppCompatActivity implements OnUp
         timerUpdate();
         entrainementInfosUpdate();
     }
+
+    /**
+     Retourne à l'activité hiérarchiquement en amont
+     * @param view -
+     */
+    public void retourActivitePrecedente(View view) {
+        this.onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, 0);
+    }
 }

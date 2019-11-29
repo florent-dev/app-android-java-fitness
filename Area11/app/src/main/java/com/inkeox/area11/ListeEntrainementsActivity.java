@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -53,8 +52,6 @@ public class ListeEntrainementsActivity extends AppCompatActivity {
             protected void onPostExecute(List<Entrainement> entrainements) {
                 super.onPostExecute(entrainements);
 
-                Log.d("DB_NB_ENT", Integer.toString(entrainements.size()));
-
                 // On utilise notre Adapter pour la liste des entrainements
                 EntrainementAdapter adapter = new EntrainementAdapter(ListeEntrainementsActivity.this, entrainements);
                 listViewEntrainements.setAdapter(adapter);
@@ -68,9 +65,24 @@ public class ListeEntrainementsActivity extends AppCompatActivity {
 
     public void jouerEntrainement(View view) {
         Intent intent = new Intent(this, JouerEntrainementActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("entrainement", entrainements.get(((int)view.getId()-1)));
+        bundle.putSerializable("entrainement", entrainements.get(((int) view.getId() - 1)));
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    /**
+     Retourne à l'activité hiérarchiquement en amont
+     * @param view -
+     */
+    public void retourActivitePrecedente(View view) {
+        this.onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, 0);
     }
 }
