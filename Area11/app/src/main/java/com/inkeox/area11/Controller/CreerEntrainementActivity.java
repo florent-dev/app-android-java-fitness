@@ -1,28 +1,27 @@
-package com.inkeox.area11;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+package com.inkeox.area11.Controller;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
-import com.inkeox.area11.Database.DatabaseClient;
-import com.inkeox.area11.Model.Entrainement;
-import com.inkeox.area11.Model.Exercice;
-import com.inkeox.area11.Model.ExerciceAdapter;
+import com.inkeox.area11.Model.Adapter.ExerciceAdapter;
+import com.inkeox.area11.Model.Database.DatabaseClient;
+import com.inkeox.area11.Model.Entity.Entrainement;
+import com.inkeox.area11.Model.Entity.Exercice;
+import com.inkeox.area11.R;
 
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class CreerEntrainementActivity extends AppCompatActivity {
 
@@ -84,36 +83,73 @@ public class CreerEntrainementActivity extends AppCompatActivity {
     private List<Exercice> genererExercices() {
         entrainement.addExercice(new Exercice(0, "Pompes", "course", 5, 2));
         entrainement.addExercice(new Exercice(0, "Crunch", "etirements", 4, 3));
-        entrainement.addExercice(new Exercice(0, "Pas croisés", "course", 4, 2));
-        entrainement.addExercice(new Exercice(0, "Pas croisés", "course", 4, 2));
-        entrainement.addExercice(new Exercice(0, "Pas croisés", "course", 4, 2));
-        entrainement.addExercice(new Exercice(0, "Pas croisés", "course", 4, 2));
         return entrainement.getExercices();
     }
 
     /**
-     * Ouvre un pop-up window pour ajouter un exercice
+     * Déclenche une nouvelle activité pour ajouter un exercice
      * @param view -
      */
     public void ajouterExercice(View view) {
-        LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customView = layoutInflater.inflate(R.layout.popup_conception_exercice,null);
+        if (this.entrainement.getExercicesCount() < Entrainement.NB_EXERCICE_MAX) {
+            Intent intent = new Intent(this, CreerExerciceActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivityForResult(intent, 1);
+        } else {
+            afficherToastAlert("Vous ne pouvez pas ajouter autant d'exercices.");
+        }
+    }
 
-        closePopupBtn = customView.findViewById(R.id.ib_close);
+    /**
+     * Supprime un exercice
+     * @param view -
+     */
+    public void supprimerExercice(View view) {
+        if (this.entrainement.getExercicesCount() > Entrainement.NB_EXERCICE_MIN) {
+            entrainement.removeExercice(entrainement.getExercices().get(view.getId()));
+        } else {
+            afficherToastAlert("Votre entrainement doit avoir au minimum un exercice.");
+        }
 
-        // Instancier la popup window
-        popupWindow = new PopupWindow(customView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        // Update de l'adapter
+        ExerciceAdapter adapter = new ExerciceAdapter(CreerEntrainementActivity.this, entrainement.getExercices());
+        listViewExercices.setAdapter(adapter);
+    }
 
-        // Afficher la popup window
-        popupWindow.showAtLocation(layoutCreerEntrainement, Gravity.CENTER, 0, 0);
+    /**
+     * Afficher une alerte Toast
+     * @param texte -
+     */
+    public void afficherToastAlert(CharSequence texte) {
+        Context context = getApplicationContext();
+        int duree = Toast.LENGTH_LONG;
 
-        // Fermer la popup window on button click
-        closePopupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
+        Toast toast = Toast.makeText(context, texte, duree);
+        toast.show();
+    }
+
+    /**
+     * Récupère l'exercice à ajouter dans l'entrainement
+     * @param requestCode -
+     * @param resultCode -
+     * @param data -
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                // Récupération et insertion du nouvel entrainement
+                if (data != null) {
+                    Exercice nouvelExercice = (Exercice) data.getSerializableExtra("exercice");
+                    entrainement.addExercice(nouvelExercice);
+
+                    // Update de l'adapter
+                    ExerciceAdapter adapter = new ExerciceAdapter(CreerEntrainementActivity.this, entrainement.getExercices());
+                    listViewExercices.setAdapter(adapter);
+                }
             }
-        });
+        }
     }
 
     /**
@@ -180,6 +216,9 @@ public class CreerEntrainementActivity extends AppCompatActivity {
         this.onBackPressed();
     }
 
+    /**
+     * Touche retour, on retire l'animation
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

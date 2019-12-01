@@ -51,6 +51,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="0dp"
         android:layout_marginRight="8dp"
+        android:onClick="supprimerExercice"
         android:padding="5dp"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 </RelativeLayout>

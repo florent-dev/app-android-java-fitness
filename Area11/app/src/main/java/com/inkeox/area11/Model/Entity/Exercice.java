@@ -1,10 +1,11 @@
-package com.inkeox.area11.Model;
+package com.inkeox.area11.Model.Entity;
 
 import java.io.Serializable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -26,10 +27,10 @@ public class Exercice implements Serializable {
     private String icone;
 
     @ColumnInfo(name = "temps")
-    private int temps;
+    private int temps = 20;
 
     @ColumnInfo(name = "temps_repos")
-    private int tempsRepos;
+    private int tempsRepos = 8;
 
     public Exercice(int id, String nom, String icone, int temps, int tempsRepos) {
         setId(id);
@@ -38,6 +39,9 @@ public class Exercice implements Serializable {
         setTemps(temps);
         setTempsRepos(tempsRepos);
     }
+
+    @Ignore
+    public Exercice() {};
 
     // Setters
     public void setId(int id) { this.id = id; }

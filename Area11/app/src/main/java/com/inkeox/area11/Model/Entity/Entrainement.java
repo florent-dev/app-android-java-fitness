@@ -1,4 +1,4 @@
-package com.inkeox.area11.Model;
+package com.inkeox.area11.Model.Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,6 +11,9 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName="entrainements")
 public class Entrainement implements Serializable {
+
+    public static final int NB_EXERCICE_MIN = 1;
+    public static final int NB_EXERCICE_MAX = 15;
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -45,6 +48,10 @@ public class Entrainement implements Serializable {
 
     public void addExercice(Exercice exercice) {
         this.exercices.add(exercice);
+    }
+
+    public void removeExercice(Exercice exercice) {
+        this.exercices.remove(exercice);
     }
 
     // Setters

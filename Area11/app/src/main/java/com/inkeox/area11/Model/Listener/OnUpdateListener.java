@@ -1,4 +1,4 @@
-package com.inkeox.area11.Model;
+package com.inkeox.area11.Model.Listener;
 
 /**
  * Interface intervenant dans le mécanisme d'abonnement auditeur/source

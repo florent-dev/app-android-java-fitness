@@ -1,4 +1,4 @@
-package com.inkeox.area11.Model;
+package com.inkeox.area11.Model.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.inkeox.area11.Model.Entity.Entrainement;
 import com.inkeox.area11.R;
 
 import java.util.List;

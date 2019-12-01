@@ -33,4 +33,8 @@
     <string name="enregistrer">Enregistrer</string>
     <string name="nom_de_l_entrainement">Nom de l\'entrainement :</string>
     <string name="retour">Retour</string>
+    <string name="editeur_d_exercice">Editeur d\'exercice</string>
+    <string name="nom_de_l_exercice">Nom de l\'exercice :</string>
+    <string name="exercice_temps">Durée de l\'exercice :</string>
+    <string name="repos">Repos :</string>
 </resources>

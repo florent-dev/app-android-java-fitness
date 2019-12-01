@@ -11,10 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CreerEntrainementActivity" />
-        <activity android:name=".ListeEntrainementsActivity" />
-        <activity android:name=".JouerEntrainementActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Controller.CreerExerciceActivity"></activity>
+        <activity android:name=".Controller.CreerEntrainementActivity" />
+        <activity android:name=".Controller.ListeEntrainementsActivity" />
+        <activity android:name=".Controller.JouerEntrainementActivity" />
+        <activity android:name=".Controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

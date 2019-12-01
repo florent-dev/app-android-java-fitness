@@ -1,7 +1,6 @@
-package com.inkeox.area11.Repository;
+package com.inkeox.area11.Model.Repository;
 
-import com.inkeox.area11.Model.Entrainement;
-import com.inkeox.area11.Model.Exercice;
+import com.inkeox.area11.Model.Entity.Exercice;
 
 import java.util.List;
 

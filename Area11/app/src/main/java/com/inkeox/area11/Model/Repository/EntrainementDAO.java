@@ -1,7 +1,7 @@
-package com.inkeox.area11.Repository;
+package com.inkeox.area11.Model.Repository;
 
-import com.inkeox.area11.Model.Entrainement;
-import com.inkeox.area11.Model.Exercice;
+import com.inkeox.area11.Model.Entity.Entrainement;
+import com.inkeox.area11.Model.Entity.Exercice;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import androidx.room.Update;
 
 @Dao
 public interface EntrainementDAO {
-    @Query("SELECT * from entrainements ORDER BY id DESC")
+    @Query("SELECT * from entrainements")
     List<Entrainement> getAll();
 
     @Query("SELECT * from entrainements where id = :id LIMIT 1")

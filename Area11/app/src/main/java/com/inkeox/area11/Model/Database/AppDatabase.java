@@ -1,9 +1,9 @@
-package com.inkeox.area11.Database;
+package com.inkeox.area11.Model.Database;
 
-import com.inkeox.area11.Model.Entrainement;
-import com.inkeox.area11.Model.Exercice;
-import com.inkeox.area11.Repository.EntrainementDAO;
-import com.inkeox.area11.Repository.ExerciceDAO;
+import com.inkeox.area11.Model.Entity.Entrainement;
+import com.inkeox.area11.Model.Entity.Exercice;
+import com.inkeox.area11.Model.Repository.EntrainementDAO;
+import com.inkeox.area11.Model.Repository.ExerciceDAO;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

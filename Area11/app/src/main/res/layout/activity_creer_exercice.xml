@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.CreerEntrainementActivity"
+    tools:context=".Controller.CreerExerciceActivity"
     android:background="@drawable/wood_bc"
     android:id="@+id/layoutCreerEntrainement">
 
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingBottom="0dp"
-            android:text="@string/app_location_creer_entrainement"
+            android:text="@string/editeur_d_exercice"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             app:fontFamily="@font/bowlby_one_sc"
@@ -57,11 +57,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nom_de_l_entrainement"
+                    android:text="@string/nom_de_l_exercice"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/entrainement_nom"
+                    android:id="@+id/exercice_nom"
                     android:layout_width="match_parent"
                     android:inputType="text" />
             </TableRow>
@@ -71,27 +71,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/temps_de_preparation"
+                    android:text="@string/exercice_temps"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/entrainement_preparation_temps"
-                    android:layout_width="72dp"
-                    android:inputType="number" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nombre_de_sequences"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/entrainement_sequence_repetitions"
+                    android:id="@+id/exercice_temps"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:inputType="number" />
             </TableRow>
 
@@ -100,50 +85,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/repos_entre_sequences"
+                    android:text="@string/repos"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/entrainement_sequence_repos_temps"
+                    android:id="@+id/exercice_temps_repos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
             </TableRow>
 
         </TableLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/linearLayoutAjouterExerciceButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearlayout1">
-
-            <ListView
-                android:id="@+id/listViewExercices"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutAjouterExerciceButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/tableLayout">
-
-            <Button
-                android:id="@+id/ajouterExercice"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="#BCDD99"
-                android:onClick="ajouterExercice"
-                android:padding="2dp"
-                android:text="@string/ajouter_un_exercice"
-                android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </LinearLayout>
 
         <TableLayout
             android:id="@+id/tableLayout"
@@ -166,15 +118,8 @@
                 <Button
                     android:id="@+id/enregistrerEntrainement"
                     android:background="#FFFFFF"
-                    android:onClick="enregisterEntrainement"
+                    android:onClick="enregistrerExercice"
                     android:text="@string/enregistrer"
-                    android:textColor="#000000" />
-
-                <Button
-                    android:id="@+id/mes_entrainements"
-                    android:background="#FFFFFF"
-                    android:onClick="testerEntrainement"
-                    android:text="@string/tester"
                     android:textColor="#000000" />
             </TableRow>
         </TableLayout>

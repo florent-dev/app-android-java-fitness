@@ -1,7 +1,8 @@
-package com.inkeox.area11.Model;
+package com.inkeox.area11.Model.Entity;
 
 import android.os.CountDownTimer;
-import android.util.Log;
+
+import com.inkeox.area11.Model.Utils.UpdateSource;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -203,11 +204,11 @@ public class Compteur extends UpdateSource implements Serializable {
     public List<String> getCurrentGraphicsStep()
     {
         switch (this.currentStepType) {
-            case STEP_TYPE_PREPARATION: return Arrays.asList("Préparation en cours... :)", "icone");
+            case STEP_TYPE_PREPARATION: return Arrays.asList("Préparation en cours", "icone");
             case STEP_TYPE_EXERCICE: return Arrays.asList(this.entrainement.getExercices().get(this.currentExercice).getNom(), "icone");
             case STEP_TYPE_PAUSE: return Arrays.asList("Pause de " + this.entrainement.getExercices().get(this.currentExercice).getTempsRepos() + "sec.", "icone");
-            case STEP_TYPE_PAUSE_FIN_SEQ: return Arrays.asList("Longue pause de " + this.entrainement.getSequenceReposTemps() + "sec.", "icone");
-            case STEP_TYPE_FINISHED: return Arrays.asList("Terminé !", "icone");
+            case STEP_TYPE_PAUSE_FIN_SEQ: return Arrays.asList("Pause de séquence de " + this.entrainement.getSequenceReposTemps() + "sec.", "icone");
+            case STEP_TYPE_FINISHED: return Arrays.asList("Félicitations, vous avez terminé !", "icone");
         }
 
         return Arrays.asList("Erreur", "icone");

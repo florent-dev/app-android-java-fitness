@@ -1,4 +1,4 @@
-package com.inkeox.area11.Model;
+package com.inkeox.area11.Model.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.inkeox.area11.Model.Entity.Exercice;
 import com.inkeox.area11.R;
 
 import java.util.List;

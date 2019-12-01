@@ -1,4 +1,4 @@
-package com.inkeox.area11;
+package com.inkeox.area11.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -7,7 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.inkeox.area11.Database.AppDatabase;
+import com.inkeox.area11.Model.Database.AppDatabase;
+import com.inkeox.area11.R;
 
 public class MainActivity extends AppCompatActivity {
 

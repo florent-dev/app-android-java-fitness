@@ -1,4 +1,4 @@
-package com.inkeox.area11;
+package com.inkeox.area11.Controller;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,9 +7,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.inkeox.area11.Model.Compteur;
-import com.inkeox.area11.Model.Entrainement;
-import com.inkeox.area11.Model.OnUpdateListener;
+import com.inkeox.area11.Model.Entity.Compteur;
+import com.inkeox.area11.Model.Entity.Entrainement;
+import com.inkeox.area11.Model.Listener.OnUpdateListener;
+import com.inkeox.area11.R;
 
 import java.util.List;
 

@@ -1,16 +1,18 @@
-package com.inkeox.area11;
+package com.inkeox.area11.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
-import com.inkeox.area11.Database.DatabaseClient;
-import com.inkeox.area11.Model.Entrainement;
-import com.inkeox.area11.Model.EntrainementAdapter;
+import com.inkeox.area11.Model.Database.DatabaseClient;
+import com.inkeox.area11.Model.Entity.Entrainement;
+import com.inkeox.area11.Model.Adapter.EntrainementAdapter;
+import com.inkeox.area11.R;
 
 import java.util.List;
 
@@ -67,7 +69,7 @@ public class ListeEntrainementsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, JouerEntrainementActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("entrainement", entrainements.get(((int) view.getId() - 1)));
+        bundle.putSerializable("entrainement", entrainements.get((int) view.getId() - 1));
         intent.putExtras(bundle);
         startActivity(intent);
     }

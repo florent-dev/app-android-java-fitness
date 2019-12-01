@@ -1,6 +1,6 @@
-package com.inkeox.area11.Model;
+package com.inkeox.area11.Model.Utils;
 
-import com.inkeox.area11.Model.OnUpdateListener;
+import com.inkeox.area11.Model.Listener.OnUpdateListener;
 
 import java.util.ArrayList;
 

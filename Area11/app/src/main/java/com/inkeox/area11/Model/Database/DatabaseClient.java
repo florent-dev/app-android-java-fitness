@@ -1,4 +1,4 @@
-package com.inkeox.area11.Database;
+package com.inkeox.area11.Model.Database;
 
 import android.content.Context;
 
