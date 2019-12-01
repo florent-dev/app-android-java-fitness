@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.inkeox.area11.Model.Entity.Exercice;
+import com.inkeox.area11.Model.Utils.ToastNotification;
 import com.inkeox.area11.R;
 
 public class CreerExerciceActivity extends AppCompatActivity {
@@ -34,8 +35,7 @@ public class CreerExerciceActivity extends AppCompatActivity {
         tempsExercice = findViewById(R.id.exercice_temps);
         tempsReposExercice = findViewById(R.id.exercice_temps_repos);
 
-        // On définit les paramètres d'un exercice par défaut
-        nomExercice.setText(String.valueOf(exercice.getNom()));
+        // On définit certains paramètres d'un exercice par défaut
         tempsExercice.setText(String.valueOf(exercice.getTemps()));
         tempsReposExercice.setText(String.valueOf(exercice.getTempsRepos()));
     }
@@ -50,6 +50,12 @@ public class CreerExerciceActivity extends AppCompatActivity {
         exercice.setNom(String.valueOf(nomExercice.getText()));
         exercice.setTemps(Integer.parseInt(tempsExercice.getText().toString()));
         exercice.setTempsRepos(Integer.parseInt(tempsReposExercice.getText().toString()));
+
+        // Obligation de renseigner nom de l'entrainement
+        if (exercice.getNom().equals("")) {
+            ToastNotification.afficher(getApplicationContext(), "Le nom de l'exercice doit être renseigné");
+            return;
+        }
 
         // On retourne le nouvel exercice sur l'entrainement en création
         Intent intent = new Intent();

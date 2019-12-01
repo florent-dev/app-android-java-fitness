@@ -16,6 +16,7 @@ import com.inkeox.area11.Model.Adapter.ExerciceAdapter;
 import com.inkeox.area11.Model.Database.DatabaseClient;
 import com.inkeox.area11.Model.Entity.Entrainement;
 import com.inkeox.area11.Model.Entity.Exercice;
+import com.inkeox.area11.Model.Utils.ToastNotification;
 import com.inkeox.area11.R;
 
 import java.util.List;
@@ -64,8 +65,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
         nbSequences = findViewById(R.id.entrainement_sequence_repetitions);
         reposSequence = findViewById(R.id.entrainement_sequence_repos_temps);
 
-        // On définit les paramètres d'un entrainement par défaut
-        nomEntrainement.setText(String.valueOf(entrainement.getNom()));
+        // On définit certains paramètres d'un entrainement par défaut
         preparationTemps.setText(String.valueOf(entrainement.getPreparationTemps()));
         nbSequences.setText(String.valueOf(entrainement.getSequenceRepetitions()));
         reposSequence.setText(String.valueOf(entrainement.getSequenceReposTemps()));
@@ -96,7 +96,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivityForResult(intent, 1);
         } else {
-            afficherToastAlert("Vous ne pouvez pas ajouter autant d'exercices.");
+            ToastNotification.afficher(getApplicationContext(), "Vous ne pouvez pas ajouter autant d'exercices.");
         }
     }
 
@@ -108,24 +108,12 @@ public class CreerEntrainementActivity extends AppCompatActivity {
         if (this.entrainement.getExercicesCount() > Entrainement.NB_EXERCICE_MIN) {
             entrainement.removeExercice(entrainement.getExercices().get(view.getId()));
         } else {
-            afficherToastAlert("Votre entrainement doit avoir au minimum un exercice.");
+            ToastNotification.afficher(getApplicationContext(), "Votre entrainement doit avoir au minimum un exercice.");
         }
 
         // Update de l'adapter
         ExerciceAdapter adapter = new ExerciceAdapter(CreerEntrainementActivity.this, entrainement.getExercices());
         listViewExercices.setAdapter(adapter);
-    }
-
-    /**
-     * Afficher une alerte Toast
-     * @param texte -
-     */
-    public void afficherToastAlert(CharSequence texte) {
-        Context context = getApplicationContext();
-        int duree = Toast.LENGTH_LONG;
-
-        Toast toast = Toast.makeText(context, texte, duree);
-        toast.show();
     }
 
     /**
@@ -183,6 +171,12 @@ public class CreerEntrainementActivity extends AppCompatActivity {
     public void enregisterEntrainement(View view) {
         updateEntrainementDatas();
 
+        // Obligation de renseigner nom de l'entrainement
+        if (entrainement.getNom().equals("")) {
+            ToastNotification.afficher(getApplicationContext(), "Le nom de l'entrainement doit être renseigné");
+            return;
+        }
+
         @SuppressLint("StaticFieldLeak")
         class UpdateEntrainements extends AsyncTask<Entrainement, Void, Void> {
 
@@ -201,6 +195,10 @@ public class CreerEntrainementActivity extends AppCompatActivity {
                 }
 
                 return null;
+            }
+
+            protected void onPostExecute(Void param) {
+                onBackPressed();
             }
         }
 

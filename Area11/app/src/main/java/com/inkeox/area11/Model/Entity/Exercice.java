@@ -45,7 +45,7 @@ public class Exercice implements Serializable {
 
     // Setters
     public void setId(int id) { this.id = id; }
-    public void setNom(String nom) { if (nom.length() > 0) { this.nom = nom; } }
+    public void setNom(String nom) { this.nom = nom; }
     public void setIcone(String icone) { this.icone = icone; }
     public void setTemps(int temps) { this.temps = temps; }
     public void setTempsRepos(int tempsRepos) { this.tempsRepos = tempsRepos; }
