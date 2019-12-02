@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void creerEntrainement(View view) {
-        Intent intent = new Intent(this, CreerEntrainementActivity.class);
+        Intent intent = new Intent(this, EditeurEntrainementActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }

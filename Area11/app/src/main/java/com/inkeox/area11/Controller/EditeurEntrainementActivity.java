@@ -1,16 +1,13 @@
 package com.inkeox.area11.Controller;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.inkeox.area11.Model.Adapter.ExerciceAdapter;
 import com.inkeox.area11.Model.Database.DatabaseClient;
@@ -19,20 +16,19 @@ import com.inkeox.area11.Model.Entity.Exercice;
 import com.inkeox.area11.Model.Utils.ToastNotification;
 import com.inkeox.area11.R;
 
-import java.util.List;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class CreerEntrainementActivity extends AppCompatActivity {
+public class EditeurEntrainementActivity extends AppCompatActivity {
+
+    /** Mode création ou édition, création par défaut */
+    private int editionMode = 0;
 
     // Model
     Entrainement entrainement = new Entrainement();
     ListView listViewExercices;
 
     // View
-    ImageButton closePopupBtn;
-    PopupWindow popupWindow;
     ConstraintLayout layoutCreerEntrainement;
     EditText nomEntrainement;
     EditText preparationTemps;
@@ -43,7 +39,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
     private DatabaseClient db;
 
     /**
-     * onCreate
+     * Initialisation de l'entrainement
      * @param savedInstanceState -
      */
     @Override
@@ -53,37 +49,32 @@ public class CreerEntrainementActivity extends AppCompatActivity {
 
         db = DatabaseClient.getInstance(getApplicationContext());
 
-        // On utilise notre Adapter pour la liste des exos
-        listViewExercices = findViewById(R.id.listViewExercices);
-        List<Exercice> exercices = genererExercices();
-        ExerciceAdapter adapter = new ExerciceAdapter(CreerEntrainementActivity.this, exercices);
-        listViewExercices.setAdapter(adapter);
-
         // On prépare nos vues
         nomEntrainement = findViewById(R.id.entrainement_nom);
         preparationTemps = findViewById(R.id.entrainement_preparation_temps);
         nbSequences = findViewById(R.id.entrainement_sequence_repetitions);
         reposSequence = findViewById(R.id.entrainement_sequence_repos_temps);
 
-        // On définit certains paramètres d'un entrainement par défaut
+        // Cas de l'édition d'un entrainement existant
+        if (getIntent().getExtras() != null) {
+            Log.d("DEBUG", "EDITION EXISTANT");
+            entrainement = (Entrainement) getIntent().getExtras().getSerializable("entrainement");
+            editionMode = 1;
+            nomEntrainement.setText(String.valueOf(entrainement.getNom()));
+        }
+
+        // On utilise notre Adapter pour la liste des exos
+        listViewExercices = findViewById(R.id.listViewExercices);
+        ExerciceAdapter adapter = new ExerciceAdapter(EditeurEntrainementActivity.this, entrainement.getExercices());
+        listViewExercices.setAdapter(adapter);
+
+        // On définit certains paramètres d'un entrainement
         preparationTemps.setText(String.valueOf(entrainement.getPreparationTemps()));
         nbSequences.setText(String.valueOf(entrainement.getSequenceRepetitions()));
         reposSequence.setText(String.valueOf(entrainement.getSequenceReposTemps()));
 
         // On récupère certains éléments
-        closePopupBtn = findViewById(R.id.ib_close);
         layoutCreerEntrainement = findViewById(R.id.layoutCreerEntrainement);
-    }
-
-
-    /**
-     * Génère des exercices par défaut
-     * @return List<Exercice> exercices
-     */
-    private List<Exercice> genererExercices() {
-        entrainement.addExercice(new Exercice(0, "Pompes", "course", 5, 2));
-        entrainement.addExercice(new Exercice(0, "Crunch", "etirements", 4, 3));
-        return entrainement.getExercices();
     }
 
     /**
@@ -112,7 +103,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
         }
 
         // Update de l'adapter
-        ExerciceAdapter adapter = new ExerciceAdapter(CreerEntrainementActivity.this, entrainement.getExercices());
+        ExerciceAdapter adapter = new ExerciceAdapter(EditeurEntrainementActivity.this, entrainement.getExercices());
         listViewExercices.setAdapter(adapter);
     }
 
@@ -133,7 +124,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
                     entrainement.addExercice(nouvelExercice);
 
                     // Update de l'adapter
-                    ExerciceAdapter adapter = new ExerciceAdapter(CreerEntrainementActivity.this, entrainement.getExercices());
+                    ExerciceAdapter adapter = new ExerciceAdapter(EditeurEntrainementActivity.this, entrainement.getExercices());
                     listViewExercices.setAdapter(adapter);
                 }
             }
@@ -179,19 +170,36 @@ public class CreerEntrainementActivity extends AppCompatActivity {
 
         @SuppressLint("StaticFieldLeak")
         class UpdateEntrainements extends AsyncTask<Entrainement, Void, Void> {
+            private Entrainement entrainement;
+            private Integer editionMode;
+
+            UpdateEntrainements(Entrainement entrainement, Integer editionMode) {
+                this.entrainement = entrainement;
+                this.editionMode = editionMode;
+            }
 
             @Override
             protected Void doInBackground(Entrainement... params) {
-                // Insertion de l'entrainement
-                DatabaseClient.getAppDatabase().entrainementDAO().insert(params[0]);
 
-                int lastId = DatabaseClient.getAppDatabase().entrainementDAO().getLastId();
-                entrainement.setId(lastId);
+                // Si l'entrainement existe on le met à jour avec les exercices
+                // Autrement on les insert en BDD
+                if (editionMode == 1) {
+                    DatabaseClient.getAppDatabase().entrainementDAO().update(entrainement);
 
-                // Insertion des exercices de l'entrainement
-                for (Exercice exercice: entrainement.getExercices()) {
-                    exercice.setIdEntrainement(lastId);
-                    DatabaseClient.getAppDatabase().exerciceDAO().insert(exercice);
+                    for (Exercice exercice: entrainement.getExercices()) {
+                        DatabaseClient.getAppDatabase().exerciceDAO().update(exercice);
+                    }
+
+                } else {
+                    DatabaseClient.getAppDatabase().entrainementDAO().insert(entrainement);
+
+                    int lastId = DatabaseClient.getAppDatabase().entrainementDAO().getLastId();
+                    entrainement.setId(lastId);
+
+                    for (Exercice exercice : entrainement.getExercices()) {
+                        exercice.setIdEntrainement(lastId);
+                        DatabaseClient.getAppDatabase().exerciceDAO().insert(exercice);
+                    }
                 }
 
                 return null;
@@ -202,8 +210,7 @@ public class CreerEntrainementActivity extends AppCompatActivity {
             }
         }
 
-        UpdateEntrainements ue = new UpdateEntrainements();
-        ue.execute(entrainement);
+        new UpdateEntrainements(entrainement, editionMode).execute();
     }
 
     /**

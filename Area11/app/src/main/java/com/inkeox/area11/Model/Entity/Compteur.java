@@ -1,8 +1,12 @@
 package com.inkeox.area11.Model.Entity;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 
+import com.inkeox.area11.Controller.JouerEntrainementActivity;
 import com.inkeox.area11.Model.Utils.UpdateSource;
+import com.inkeox.area11.R;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -22,6 +26,7 @@ public class Compteur extends UpdateSource implements Serializable {
     private final static int STEP_TYPE_FINISHED = 4;
 
     private Entrainement entrainement;
+    private Context context;
     private CountDownTimer timer;   // https://developer.android.com/reference/android/os/CountDownTimer.html
     private long updatedTime;
     private int currentStepType = STEP_TYPE_PREPARATION;
@@ -29,8 +34,9 @@ public class Compteur extends UpdateSource implements Serializable {
     private int currentSequence = 1;
 
     // Constructeur
-    public Compteur(Entrainement entrainement) {
+    public Compteur(Entrainement entrainement, Context context) {
         this.entrainement = entrainement;
+        this.context = context;
         this.updatedTime = entrainement.getPreparationTemps() * 1000;
     }
 
@@ -166,6 +172,18 @@ public class Compteur extends UpdateSource implements Serializable {
                 break;
         }
 
+        jouerSon();
+    }
+
+    /**
+     * Jouer un son pour une nouvelle étape
+     */
+    public void jouerSon()
+    {
+        if (null != this.context) {
+            MediaPlayer mediaPlayer = MediaPlayer.create(this.context, R.raw.notification);
+            mediaPlayer.start();
+        }
     }
 
     /**

@@ -5,16 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp" >
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/icone"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/icone"
-        android:layout_alignTop="@+id/icone"
-        android:textStyle="bold" tools:text="Entrainement" />
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:text="Entrainement" />
 
     <TextView
         android:id="@+id/nb_sequences"
@@ -22,18 +24,43 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/nom"
         android:layout_alignLeft="@+id/nom"
-        tools:text="X séquences comportant X exercices" />
+        android:textSize="20dp"
+        tools:text="X séquences de X exercices" />
 
     <ImageButton
-        android:id="@+id/removeExerciceButton"
+        android:id="@+id/editEntrainementButton"
         style="@android:style/Widget.DeviceDefault.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="8dp"
+        android:layout_below="@+id/nb_sequences"
+        android:onClick="editerEntrainement"
+        android:padding="5dp"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <ImageButton
+        android:id="@+id/removeEntrainementButton"
+        style="@android:style/Widget.DeviceDefault.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nb_sequences"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:onClick="supprimerEntrainement"
+        android:padding="5dp"
+        app:srcCompat="@android:drawable/ic_delete" />
+
+    <ImageButton
+        android:id="@+id/playEntrainementButton"
+        style="@android:style/Widget.DeviceDefault.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nb_sequences"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
         android:onClick="jouerEntrainement"
         android:padding="5dp"
         app:srcCompat="@android:drawable/ic_media_play" />

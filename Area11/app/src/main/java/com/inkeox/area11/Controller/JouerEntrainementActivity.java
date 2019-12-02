@@ -1,6 +1,7 @@
 package com.inkeox.area11.Controller;
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -47,7 +48,7 @@ public class JouerEntrainementActivity extends AppCompatActivity implements OnUp
             Entrainement entrainement = (Entrainement) getIntent().getExtras().getSerializable("entrainement");
 
             if (entrainement != null) {
-                compteur = new Compteur(entrainement);
+                compteur = new Compteur(entrainement, this.getApplicationContext());
             }
 
         }
@@ -96,6 +97,8 @@ public class JouerEntrainementActivity extends AppCompatActivity implements OnUp
             compteur.pause();
             startPauseButton.setText(R.string.reprendre);
             return;
+        } else {
+            compteur.jouerSon();
         }
 
         startPauseButton.setText(getString(R.string.pause));

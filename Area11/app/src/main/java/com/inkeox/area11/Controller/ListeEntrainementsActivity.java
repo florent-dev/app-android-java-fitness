@@ -2,6 +2,7 @@ package com.inkeox.area11.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ public class ListeEntrainementsActivity extends AppCompatActivity {
         afficherEntrainements();
     }
 
+    /**
+     * Afficher la liste des entrainements en asynctask
+     */
     public void afficherEntrainements() {
         class GetEntrainements extends AsyncTask<Void, Void, List<Entrainement>> {
 
@@ -65,11 +69,58 @@ public class ListeEntrainementsActivity extends AppCompatActivity {
         ge.execute();
     }
 
+    /**
+     * Lancer le compteur
+     * @param view view.getId() => directement l'id de l'entrainement
+     */
     public void jouerEntrainement(View view) {
         Intent intent = new Intent(this, JouerEntrainementActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
         Bundle bundle = new Bundle();
-        bundle.putSerializable("entrainement", entrainements.get((int) view.getId() - 1));
+        bundle.putSerializable("entrainement", entrainements.get( (int) view.getId() ));
+
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    /**
+     * Suppression de l'entrainement
+     * @param view -
+     */
+    public void supprimerEntrainement(View view) {
+        Entrainement entrainement = entrainements.get( (int) view.getId() );
+        entrainements.remove(entrainement);
+
+        @SuppressLint("StaticFieldLeak")
+        class DeleteEntrainement extends AsyncTask<Entrainement, Void, Void> {
+            @Override
+            protected Void doInBackground(Entrainement... params) {
+                DatabaseClient.getAppDatabase().entrainementDAO().delete(params[0]);
+                return null;
+            }
+        }
+
+        DeleteEntrainement de = new DeleteEntrainement();
+        de.execute(entrainement);
+
+        // Update de l'adapter
+        EntrainementAdapter adapter = new EntrainementAdapter(ListeEntrainementsActivity.this, entrainements);
+        listViewEntrainements.setAdapter(adapter);
+    }
+
+    /**
+     * Edition d'un entrainement
+     * @param view -
+     */
+    public void editerEntrainement(View view) {
+        Intent intent = new Intent(this, EditeurEntrainementActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("entrainement", entrainements.get( (int) view.getId() ));
+        Log.d("EDITER?", entrainements.get( (int) view.getId() ).getNom());
+
         intent.putExtras(bundle);
         startActivity(intent);
     }
