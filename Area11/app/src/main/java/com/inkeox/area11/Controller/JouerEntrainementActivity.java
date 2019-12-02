@@ -1,6 +1,8 @@
 package com.inkeox.area11.Controller;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.inkeox.area11.Model.Entity.Entrainement;
 import com.inkeox.area11.Model.Listener.OnUpdateListener;
 import com.inkeox.area11.R;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -127,7 +130,7 @@ public class JouerEntrainementActivity extends AppCompatActivity implements OnUp
      */
     private void timerUpdate() {
         // Affichage des informations du compteur
-        timerValue.setText(String.format("%02d", compteur.getSecondes()) + ":" + String.format("%03d", compteur.getMillisecondes()));
+        timerValue.setText(String.format("%02d", compteur.getMinutes()) + ":" + String.format("%02d", compteur.getSecondes()));
     }
 
     /**
@@ -135,8 +138,17 @@ public class JouerEntrainementActivity extends AppCompatActivity implements OnUp
      */
     private void entrainementInfosUpdate() {
         List<String> infos = compteur.getCurrentGraphicsStep();
-        exerciceIcone.setBackgroundColor(Color.DKGRAY); // TODO exerciceIcone
         exerciceNom.setText(infos.get(0));
+
+        try {
+            Context context = this.getApplicationContext();
+            Drawable d = context.getResources().getDrawable(context.getResources().getIdentifier(infos.get(1), "drawable", context.getPackageName()));
+            exerciceIcone.setImageDrawable(d);
+            exerciceIcone.setBackgroundColor(Color.TRANSPARENT);
+        }
+        catch (Exception e) {
+            exerciceIcone.setBackgroundColor(Color.DKGRAY);
+        }
     }
 
     /**

@@ -222,11 +222,11 @@ public class Compteur extends UpdateSource implements Serializable {
     public List<String> getCurrentGraphicsStep()
     {
         switch (this.currentStepType) {
-            case STEP_TYPE_PREPARATION: return Arrays.asList("Préparation en cours", "icone");
-            case STEP_TYPE_EXERCICE: return Arrays.asList(this.entrainement.getExercices().get(this.currentExercice).getNom(), "icone");
-            case STEP_TYPE_PAUSE: return Arrays.asList("Pause de " + this.entrainement.getExercices().get(this.currentExercice).getTempsRepos() + "sec.", "icone");
-            case STEP_TYPE_PAUSE_FIN_SEQ: return Arrays.asList("Pause de séquence de " + this.entrainement.getSequenceReposTemps() + "sec.", "icone");
-            case STEP_TYPE_FINISHED: return Arrays.asList("Félicitations, vous avez terminé !", "icone");
+            case STEP_TYPE_PREPARATION: return Arrays.asList("Préparation en cours", "attente");
+            case STEP_TYPE_EXERCICE: return Arrays.asList(this.entrainement.getExercices().get(this.currentExercice).getNom(), "course");
+            case STEP_TYPE_PAUSE: return Arrays.asList("Pause de " + this.entrainement.getExercices().get(this.currentExercice).getTempsRepos() + "sec.", "attente");
+            case STEP_TYPE_PAUSE_FIN_SEQ: return Arrays.asList("Pause de séquence de " + this.entrainement.getSequenceReposTemps() + "sec.", "attente");
+            case STEP_TYPE_FINISHED: return Arrays.asList("Félicitations, vous avez terminé !", "felicitations");
         }
 
         return Arrays.asList("Erreur", "icone");
