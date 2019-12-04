@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -57,7 +56,6 @@ public class EditeurEntrainementActivity extends AppCompatActivity {
 
         // Cas de l'édition d'un entrainement existant
         if (getIntent().getExtras() != null) {
-            Log.d("DEBUG", "EDITION EXISTANT");
             entrainement = (Entrainement) getIntent().getExtras().getSerializable("entrainement");
             editionMode = 1;
             nomEntrainement.setText(String.valueOf(entrainement.getNom()));
@@ -96,15 +94,21 @@ public class EditeurEntrainementActivity extends AppCompatActivity {
      * @param view -
      */
     public void supprimerExercice(View view) {
-        if (this.entrainement.getExercicesCount() > Entrainement.NB_EXERCICE_MIN) {
-            entrainement.removeExercice(entrainement.getExercices().get(view.getId()));
-        } else {
-            ToastNotification.afficher(getApplicationContext(), "Votre entrainement doit avoir au minimum un exercice.");
-        }
+        try {
 
-        // Update de l'adapter
-        ExerciceAdapter adapter = new ExerciceAdapter(EditeurEntrainementActivity.this, entrainement.getExercices());
-        listViewExercices.setAdapter(adapter);
+            if (this.entrainement.getExercicesCount() > Entrainement.NB_EXERCICE_MIN) {
+                entrainement.removeExercice(entrainement.getExercices().get(view.getId()));
+            } else {
+                ToastNotification.afficher(getApplicationContext(), "Votre entrainement doit avoir au minimum un exercice.");
+            }
+
+            // Update de l'adapter
+            ExerciceAdapter adapter = new ExerciceAdapter(EditeurEntrainementActivity.this, entrainement.getExercices());
+            listViewExercices.setAdapter(adapter);
+
+        } catch (Exception $e) {
+            // Failure to remove the element
+        }
     }
 
     /**
@@ -168,6 +172,12 @@ public class EditeurEntrainementActivity extends AppCompatActivity {
             return;
         }
 
+        // Un exercice minimum
+        if (entrainement.getExercicesCount() < 1) {
+            ToastNotification.afficher(getApplicationContext(), "L'entrainement doit contenir au moins un exercice");
+            return;
+        }
+
         @SuppressLint("StaticFieldLeak")
         class UpdateEntrainements extends AsyncTask<Entrainement, Void, Void> {
             private Entrainement entrainement;
@@ -187,7 +197,12 @@ public class EditeurEntrainementActivity extends AppCompatActivity {
                     DatabaseClient.getAppDatabase().entrainementDAO().update(entrainement);
 
                     for (Exercice exercice: entrainement.getExercices()) {
-                        DatabaseClient.getAppDatabase().exerciceDAO().update(exercice);
+                        if (exercice.getId() == 0) {
+                            exercice.setIdEntrainement(entrainement.getId());
+                            DatabaseClient.getAppDatabase().exerciceDAO().insert(exercice);
+                        } else {
+                            DatabaseClient.getAppDatabase().exerciceDAO().update(exercice);
+                        }
                     }
 
                 } else {

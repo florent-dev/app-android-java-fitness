@@ -37,4 +37,5 @@
     <string name="nom_de_l_exercice">Nom de l\'exercice :</string>
     <string name="exercice_temps">Durée de l\'exercice :</string>
     <string name="repos">Repos :</string>
+    <string name="nb_repetitions">Nombre de répétitions</string>
 </resources>

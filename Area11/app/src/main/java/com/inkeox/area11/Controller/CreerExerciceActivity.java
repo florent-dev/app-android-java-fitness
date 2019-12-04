@@ -30,6 +30,8 @@ public class CreerExerciceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creer_exercice);
 
+        exercice.setId(0);
+
         // On prépare nos vues
         nomExercice = findViewById(R.id.exercice_nom);
         tempsExercice = findViewById(R.id.exercice_temps);

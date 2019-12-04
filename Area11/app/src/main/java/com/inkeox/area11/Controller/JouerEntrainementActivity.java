@@ -3,7 +3,6 @@ package com.inkeox.area11.Controller;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,6 @@ import com.inkeox.area11.Model.Entity.Entrainement;
 import com.inkeox.area11.Model.Listener.OnUpdateListener;
 import com.inkeox.area11.R;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -77,7 +75,11 @@ public class JouerEntrainementActivity extends AppCompatActivity implements OnUp
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        bundle.putSerializable(STATE_COUNTER, compteur);
+        try {
+            bundle.putSerializable(STATE_COUNTER, compteur);
+        } catch (Exception $e) {
+            // Failure
+        }
     }
 
     /**
